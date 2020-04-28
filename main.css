@@ -1,0 +1,29 @@
+
+* {
+    font-family: 'Space Mono', monospace;
+}
+
+.glow {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+}
+
+#gui {
+    background: transparent;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 2em;
+}
+
+button {
+    background: transparent;
+    color: white;
+    border: 2px solid #0dd0d6;
+    border-radius: 2px;
+    outline: none;
+    transition: 200ms all;
+}
+
+button:hover {
+    background: rgba(0, 127, 127, .4)
+}
