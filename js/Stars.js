@@ -4,6 +4,8 @@ import { BLOOM_LAYER } from './constants.js'
 export default class Stars {
 
     constructor(r, n) {
+        if(!Stars.sprite) Stars.sprite = new TextureLoader().load('../star.png')
+
         this.points = []
         for(let i = 0; i < n; i++) {
            let radius = (Math.random()*2 + 1) * r
@@ -15,9 +17,8 @@ export default class Stars {
            this.points.push(new Vector3(x, y, z))
         }
         
-        this.sprite = new TextureLoader().load('../star.png')
         this.geometry = new BufferGeometry().setFromPoints(this.points)
-        this.material = new PointsMaterial( { size: 10, sizeAttenuation: true, map: this.sprite, alphaTest: .1,
+        this.material = new PointsMaterial( { size: 10, sizeAttenuation: true, map: Stars.sprite, alphaTest: .1,
             transparent: true, color: 0x888888 } )
         this.mesh = new Points(this.geometry, this.material)
         this.mesh.layers.enable(BLOOM_LAYER)

@@ -45,8 +45,7 @@ export default class DysonSphere {
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
         this.mesh = new Mesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
-        
-        this.tl = gsap.timeline()
+
         this.click = -1
         this.clicked = -1
     }
@@ -60,23 +59,23 @@ export default class DysonSphere {
 
         if(this.click != this.clicked) {
             if(this.clicked != -1) {
-                this.tl = gsap.timeline()
+                let tl = gsap.timeline()
                 let face = this.geometry.faces[this.clicked]
                 let { a, b, c } = face.original               
-                this.tl.to(this.geometry.vertices[face.a], .4, { x: a.x, y: a.y, z: a.z, ease: Expo.easeOut }).eventCallback('onUpdate', this.updateAnim.bind(this))
-                this.tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
-                this.tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
+                tl.to(this.geometry.vertices[face.a], .4, { x: a.x, y: a.y, z: a.z, ease: Expo.easeOut }).eventCallback('onUpdate', this.updateAnim.bind(this))
+                tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
+                tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 this.clicked = this.click
             }
             if(this.click != -1) {
-                this.tl = gsap.timeline()
+                let tl = gsap.timeline()
                 let face = this.geometry.faces[this.click]
                 let a = face.selectDelta.clone().add(this.geometry.vertices[face.a])
                 let b = face.selectDelta.clone().add(this.geometry.vertices[face.b])
                 let c = face.selectDelta.clone().add(this.geometry.vertices[face.c])
-                this.tl.to(this.geometry.vertices[face.a], .4, { x: a.x, y: a.y, z: a.z, ease: Expo.easeOut }).eventCallback('onUpdate', this.updateAnim.bind(this))
-                this.tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
-                this.tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
+                tl.to(this.geometry.vertices[face.a], .4, { x: a.x, y: a.y, z: a.z, ease: Expo.easeOut }).eventCallback('onUpdate', this.updateAnim.bind(this))
+                tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
+                tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 this.clicked = this.click
             }
         }

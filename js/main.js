@@ -2,6 +2,15 @@ import * as THREE from './three/build/three.module.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
 import Game from './game.js'
 import AssetLoader from './AssetLoader.js'
+import { Spinner } from './lib/spin.js'
+import { spinnerOptions } from './constants.js'
+
+let target = document.getElementById('loading-screen')
+new Spinner(spinnerOptions).spin(target)
+setTimeout(() => {
+    $('#loading-screen').fadeOut(1000)
+    $('#loading-screen *').fadeOut(500)
+}, 2000)
 
 let canvas = document.createElement('canvas')
 let context = canvas.getContext('webgl2', { alpha: false })
@@ -19,7 +28,7 @@ document.body.appendChild(stats.dom)
 
 let scene = new THREE.Scene()
 let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000)
-camera.position.z = 8
+camera.position.z = 60
 
 let gameState = null
 let loader = new AssetLoader()

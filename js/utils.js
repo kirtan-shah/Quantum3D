@@ -2,9 +2,9 @@ import { Vector3, ArrowHelper, CylinderGeometry, MeshBasicMaterial, Mesh, Euler 
 
 function thickLine(pointX, pointY, thickness, color) {
     // edge from X to Y
-    var direction = new Vector3().subVectors(pointY, pointX)
-    var arrow = new ArrowHelper(direction.clone().normalize(), pointX)
-    var rotation = new Euler().setFromQuaternion(arrow.quaternion)
+    let direction = new Vector3().subVectors(pointY, pointX)
+    let arrow = new ArrowHelper(direction.clone().normalize(), pointX)
+    let rotation = new Euler().setFromQuaternion(arrow.quaternion)
 
     // cylinder: radiusAtTop, radiusAtBottom, 
     //     height, radiusSegments, heightSegments
@@ -37,4 +37,17 @@ function shuffleArray(array) {
 	return array
 }
 
-export { thickLine, shuffleArray }
+function randomGaussian() {
+    var u = 0, v = 0
+    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = Math.random();
+    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )
+}
+
+function shiftElementsBack(arr, i, n, end) {
+    for(let j = i; j < end - 1; j++) {
+        arr[j] = arr[j + n]
+    }
+}
+
+export { thickLine, shuffleArray, randomGaussian, shiftElementsBack }

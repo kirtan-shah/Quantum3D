@@ -7,14 +7,21 @@
 			body { margin: 0; overflow: hidden; }
 			canvas { display: block; }
 		</style>
+		<link href="css/spin.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
-		<link href="main.css" rel="stylesheet">
+		<link href="css/main.css" rel="stylesheet">
+
+		<script src="js/lib/jquery-3.5.0.min.js"></script>
 	</head>
 	<body>
+		<div id="loading-screen"></div>
+
 		<div id="gui" class="glow">
 			<button id="power-panel" class="glow">Power Panel</button>
 			<button id="shield-panel" class="glow">Shield Panel</button>
 		</div>
+
+		<div id="move-label" class="glow"></div>
 
 		<script src="js/gsap.min.js"></script>
 		<script src="js/main.js" type="module"></script>
