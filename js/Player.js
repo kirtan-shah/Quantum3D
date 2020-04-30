@@ -1,8 +1,9 @@
 import { Vector3 } from './three/build/three.module.js'
 import Planet from './planet.js'
 import Sun from './sun.js'
-import DysonSphere from './DysonSphere.js'
+import { DysonSphere, DysonMesh } from './DysonSphere.js'
 import Road from './Road.js'
+import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
 
 export default class Player {
 
@@ -15,6 +16,8 @@ export default class Player {
         ]
         this.planets.forEach(p => game.scene.add(p.group))
         this.planets[0].fighters.add(1024)
+        this.planets[1].fighters.add(1024)
+        this.planets[2].fighters.add(1024)
 
         this.roads = []
         for(let i = 0; i < this.planets.length; i++) {
@@ -55,20 +58,16 @@ export default class Player {
         this.dyson.count++
     }
 
-    mouseMove(event) { 
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
-        this.raycaster.setFromCamera(this.mouse, this.game.camera)
-
+    mouseMove(raycaster) { 
         for(let p of this.planets) {
-            let intersects = this.raycaster.intersectObject(p.mesh, false)
+            let intersects = raycaster.intersectObject(p.mesh, false)
             p.hover = intersects.length > 0
         }
         for(let r of this.roads) {
             r.material = r.arrowMaterial.color.set(0x7FFF7F)
             if(r.selected) {
                 r.arrowMesh.layers.disable(BLOOM_LAYER)
-                let intersects = this.raycaster.intersectObject(r.arrowMesh, false)
+                let intersects = raycaster.intersectObject(r.arrowMesh, false)
                 if(intersects.length > 0) {
                     r.material = r.arrowMaterial.color.set(0xFFFFFF)
                     r.arrowMesh.layers.enable(BLOOM_LAYER)
@@ -77,18 +76,14 @@ export default class Player {
         }
     }
 
-    click(event) {
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
-        this.raycaster.setFromCamera(this.mouse, this.game.camera)
-
+    click(raycaster) {
         for(let p of this.planets) {
-            let intersects = this.raycaster.intersectObject(p.mesh, false)
+            let intersects = raycaster.intersectObject(p.mesh, false)
             if(intersects.length > 0) p.select()
             else p.deselect()
         }
 
-        let intersects = this.raycaster.intersectObject(this.dyson.mesh, true)
+        let intersects = raycaster.intersectObject(this.dyson.mesh, true)
         if(intersects.length > 0) this.dyson.click = intersects[0].faceIndex
         else this.dyson.click = -1
     }

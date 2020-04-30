@@ -8,6 +8,7 @@ import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
 import { DragControls } from './three/examples/jsm/controls/DragControls.js'
 import Stars from './Stars.js'
 import Player from './Player.js'
+import { DysonMesh } from './DysonSphere.js'
 import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
 import TransactingFighters from './TransactingFighters.js'
 
@@ -135,12 +136,12 @@ export default class Game {
     }
 
     darkenMaterials(obj) {
-        if(obj.isMesh && this.bloomLayer.test(obj.layers) === false && obj != this.dyson.mesh) {
+        if(obj.isMesh && this.bloomLayer.test(obj.layers) === false && !(obj instanceof DysonMesh)) {
             this.materialCache[obj.uuid] = obj.material
             obj.material = this.invisibleMaterial
         }
-        if(obj == this.dyson.mesh) {
-            this.dyson.darken()
+        if(obj instanceof DysonMesh) {
+            obj.dyson.darken()
         }
     }
     restoreMaterials(obj) {
@@ -148,8 +149,8 @@ export default class Game {
             obj.material = this.materialCache[obj.uuid]
             delete this.materialCache[obj.uuid]
         }
-        if(obj == this.dyson.mesh) {
-            this.dyson.restore()
+        if(obj instanceof DysonMesh) {
+            obj.dyson.restore()
         }
     }
 
@@ -191,11 +192,18 @@ export default class Game {
             this.suppressClick = 0
             return
         }
-        this.player.click(event)
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
+        this.raycaster.setFromCamera(this.mouse, this.camera)
+        this.player.click(this.raycaster)
     }
 
     mouseMove(event) {
-        this.player.mouseMove(event)
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
+        this.raycaster.setFromCamera(this.mouse, this.camera)
+
+        this.player.mouseMove(this.raycaster)
     }
 
     resize() {

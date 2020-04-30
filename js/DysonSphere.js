@@ -45,6 +45,7 @@ class DysonSphere {
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
         this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
+        this.mesh.dyson = this
 
         this.click = -1
         this.clicked = -1
@@ -107,3 +108,5 @@ class DysonMesh extends Mesh {
         super(geometry, material)
     }
 }
+
+export { DysonSphere, DysonMesh }
