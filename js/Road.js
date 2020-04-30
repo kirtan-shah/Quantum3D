@@ -7,6 +7,8 @@ export default class Road {
         this.p1 = p1
         this.p2 = p2
 
+        this.group = new Group()
+
         this.lineMesh = thickLine(p1.position, p2.position, .15, 0xFFFFFF)
         p1.roads.push(this)
         p2.roads.push(this)
@@ -18,9 +20,9 @@ export default class Road {
         this.arrowMesh.setRotationFromEuler(this.lineMesh.rotation.clone())
         this.arrowMesh.direction = new Vector3().subVectors(p2.position, p1.position)
         this.arrowMesh.road = this
-    
-        this.position = new Vector3().addVectors(p1.position, p2.position).divideScalar(2)
-        this.arrowMesh.position.copy(this.position)
+
+        this.group.add(this.lineMesh, this.arrowMesh)
+        this.group.position.copy(new Vector3().addVectors(p1.position, p2.position).divideScalar(2))
 
         this.selected = false
     }
@@ -63,8 +65,7 @@ export default class Road {
         return null
     }
 
-    /*
     get position() {
-        return this.position
-    }*/
+        return this.group.position
+    }
 }

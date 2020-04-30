@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Thu Apr 30 2020 00:36:45 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* js/Road.js
+* js/Stars.js
+* js/game.js
+* js/main.js
+
+
+Created files:
+* .autogit/autogit.json
+
+
+Deleted files:
+
+
+Renamed files:

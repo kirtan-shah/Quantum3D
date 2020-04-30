@@ -49,7 +49,8 @@ export default class Game {
                 let road = new Road(this.planets[i], this.planets[j])
                 this.roads.push(road)
                 this.draggableObjects.push(road.arrowMesh)
-                scene.add(road.lineMesh, road.arrowMesh)
+                //scene.add(road.lineMesh, road.arrowMesh)
+                scene.add(road.group)
             }
         }
         /******* End Load Map *******/

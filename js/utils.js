@@ -14,8 +14,8 @@ function thickLine(pointX, pointY, thickness, color) {
     let mesh = new Mesh(geometry, material);
 
     mesh.setRotationFromEuler(rotation.clone())
-    let mid = new Vector3().addVectors(pointX, direction.multiplyScalar(0.5));
-    mesh.position.set(mid.x, mid.y, mid.z)
+    //let mid = new Vector3().addVectors(pointX, direction.multiplyScalar(0.5));
+    //mesh.position.set(mid.x, mid.y, mid.z)
     return mesh
 }
 
