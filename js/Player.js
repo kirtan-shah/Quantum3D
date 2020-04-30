@@ -71,7 +71,7 @@ export default class Player {
         for(let p of this.planets) {
             let intersects = raycaster.intersectObject(p.mesh, false)
             p.hover = intersects.length > 0
-            if(p.hover) {
+            if(p.hover || p.selected) {
                 p.showLabel(this.game.camera)
                 oneHovered = true
             }
