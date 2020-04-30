@@ -117,7 +117,7 @@ export default class Game {
 
     update(dt) {
         this.orbitControls.update()
-        this.player.update()
+        this.player.update(dt)
         
         let keepTransactions = []
         for(let fighters of this.pendingTransactions) {

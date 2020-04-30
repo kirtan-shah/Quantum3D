@@ -3,7 +3,7 @@ import Stars from './Stars.js'
 import { randomGaussian } from './utils.js'
 
 export default class Fighters {
-    constructor(planet, n, bufferLength=1024) {
+    constructor(planet, n, bufferLength=16384) {
         this.planet = planet
         this.particleData = new Array(bufferLength)
         this.points = new Float32Array(bufferLength * 3)
@@ -20,7 +20,6 @@ export default class Fighters {
     }
 
     update(dt) {
-        //console.log(this.particleData, this.n)
         for(let i = 0; i < this.n; i++) {
             let v = new Vector3(this.points[i*3], this.points[i*3 + 1], this.points[i*3 + 2])
             v.applyAxisAngle(this.particleData[i].angle, this.particleData[i].orbitSpeed * dt)
@@ -29,6 +28,7 @@ export default class Fighters {
             this.points[i*3 + 2] = v.z
             this.particleData[i].angle.add(new Vector3(randomGaussian(), randomGaussian(), randomGaussian()).setLength(.1)).normalize()
         }
+        this.geometry.attributes.position.needsUpdate = true
     }
 
     generate(start, n) {

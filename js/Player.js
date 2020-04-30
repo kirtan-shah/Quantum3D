@@ -15,9 +15,9 @@ export default class Player {
             new Planet(3, new Vector3(-10,  0, 0))
         ]
         this.planets.forEach(p => game.scene.add(p.group))
-        this.planets[0].fighters.add(1024)
-        this.planets[1].fighters.add(1024)
-        this.planets[2].fighters.add(1024)
+        //this.planets[0].fighters.add(1024)
+        //this.planets[1].fighters.add(1024)
+        //this.planets[2].fighters.add(1024)
 
         this.roads = []
         for(let i = 0; i < this.planets.length; i++) {
@@ -36,13 +36,20 @@ export default class Player {
         this.dyson = new DysonSphere(20, new Vector3(-40, 0, 0))
         game.scene.add(this.dyson.mesh)
         this.dyson.update()
-        
+        this.powerPanels = 0
+        this.shieldPanels = 0
 
+        this.energyAccumulator = 0
     }
 
     update(dt) {
         for(let p of this.planets) p.update(dt)
         this.dyson.update()
+        
+        this.planets[2].fighters.add(Math.floor(this.energyAccumulator))
+        this.energyAccumulator = this.energyAccumulator % 1
+        this.energyAccumulator += this.powerPanels * .1 * dt
+        console.log(this.energyAccumulator)
     }
 
     addPowerPanel() {
@@ -53,9 +60,11 @@ export default class Player {
             }
         }
         this.dyson.count++
+        this.powerPanels++
     }
     addShieldPanel() {
         this.dyson.count++
+        this.shieldPanels++
     }
 
     mouseMove(raycaster) { 
