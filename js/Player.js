@@ -17,7 +17,7 @@ export default class Player {
         this.planets.forEach(p => game.scene.add(p.group))
         //this.planets[0].fighters.add(1024)
         //this.planets[1].fighters.add(1024)
-        //this.planets[2].fighters.add(1024)
+        this.planets[2].fighters.add(10000)
 
         this.roads = []
         for(let i = 0; i < this.planets.length; i++) {
@@ -48,8 +48,7 @@ export default class Player {
         
         this.planets[2].fighters.add(Math.floor(this.energyAccumulator))
         this.energyAccumulator = this.energyAccumulator % 1
-        this.energyAccumulator += this.powerPanels * 3 * dt
-        console.log(this.energyAccumulator)
+        this.energyAccumulator += this.powerPanels * .1 * dt
     }
 
     addPowerPanel() {

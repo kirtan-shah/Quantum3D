@@ -26,7 +26,7 @@ export default class Fighters {
             this.points[i*3 + 0] = v.x
             this.points[i*3 + 1] = v.y
             this.points[i*3 + 2] = v.z
-            //this.particleData[i].angle.add(new Vector3(randomGaussian(), randomGaussian(), randomGaussian()).setLength(.1)).normalize()
+            this.particleData[i].angle.add(new Vector3(randomGaussian(), randomGaussian(), randomGaussian()).setLength(.1)).normalize()
         }
         this.geometry.attributes.position.needsUpdate = true
     }
