@@ -2,7 +2,7 @@ import { IcosahedronGeometry, Geometry, MeshBasicMaterial, MeshPhongMaterial, Ve
 import { shuffleArray } from './utils.js'
 
 
-export default class DysonSphere {
+class DysonSphere {
 
     constructor(r, pos) {
         if(!DysonSphere.transparentMaterial) 
@@ -43,7 +43,7 @@ export default class DysonSphere {
         this.count = 0 //geometry.faces.length
         this.geometry = geometry
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
-        this.mesh = new Mesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
+        this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
 
         this.click = -1
@@ -99,5 +99,11 @@ export default class DysonSphere {
             if(this.geometry.faces[i].materialIndex == 2) this.geometry.faces[i].materialIndex = 1
         }
         this.geometry.elementsNeedUpdate = true
+    }
+}
+
+class DysonMesh extends Mesh {
+    constructor(geometry, material) {
+        super(geometry, material)
     }
 }

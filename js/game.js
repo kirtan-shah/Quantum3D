@@ -6,12 +6,9 @@ import { UnrealBloomPass } from './three/examples/jsm/postprocessing/UnrealBloom
 import { ShaderPass } from './three/examples/jsm/postprocessing/ShaderPass.js'
 import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
 import { DragControls } from './three/examples/jsm/controls/DragControls.js'
-import Planet from './planet.js'
-import Sun from './sun.js'
 import Stars from './Stars.js'
+import Player from './Player.js'
 import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
-import DysonSphere from './DysonSphere.js'
-import Road from './Road.js'
 import TransactingFighters from './TransactingFighters.js'
 
 export default class Game {
@@ -29,40 +26,8 @@ export default class Game {
 
         this.invisibleMaterial = new MeshBasicMaterial({ color: 'black' })
 
-        /******* Load Map *******/
-        this.planets = [
-            new Planet(3, new Vector3(10, 0, 0)),
-            //new Planet(1, new Vector3(-6, 6, 0)),
-            new Planet(2, new Vector3(10, -10, 0)),
-            new Planet(3, new Vector3(-10,  0, 0)),
-            //new Planet(1, new Vector3(0, 0, 6))
-        ]
-        this.planets.forEach(p => scene.add(p.group))
-        
-        this.planets[0].fighters.add(1024)
-        //scene.add(this.fighters.mesh)
+        this.player = new Player(this)
 
-        //roads
-        this.roads = []
-        for(let i = 0; i < this.planets.length; i++) {
-            for(let j = 0; j < i; j++) {
-                let road = new Road(this.planets[i], this.planets[j])
-                this.roads.push(road)
-                this.draggableObjects.push(road.arrowMesh)
-                //scene.add(road.lineMesh, road.arrowMesh)
-                scene.add(road.group)
-            }
-        }
-        /******* End Load Map *******/
-
-        this.sun = new Sun()
-        this.sun.position = new Vector3(-40, 0, 0)
-        scene.add(this.sun.mesh)
-
-        this.dyson = new DysonSphere(20, new Vector3(-40, 0, 0))
-        scene.add(this.dyson.mesh)
-        this.dyson.update()
-        
         let lights = [
             new DirectionalLight(0xffffff, 2, 0),
             new DirectionalLight(0xffffff, 2, 0),
@@ -90,16 +55,8 @@ export default class Game {
         this.bloomLayer.set(BLOOM_LAYER)
         this.materialCache = {}
 
-        document.getElementById('power-panel').onclick = () => {
-            for(let face of this.dyson.geometry.faces) {
-                if(face.index == this.dyson.count) {
-                    face.bloom = true
-                    break
-                }
-            }
-            this.dyson.count++
-        }
-        document.getElementById('shield-panel').onclick = () => this.dyson.count++
+        document.getElementById('power-panel').onclick = () => this.player.addPowerPanel()
+        document.getElementById('shield-panel').onclick = () => this.player.addShieldPanel()
 
         /*
         let self = this
@@ -159,8 +116,8 @@ export default class Game {
 
     update(dt) {
         this.orbitControls.update()
-        for(let p of this.planets) p.update(dt)
-        this.dyson.update()
+        this.player.update()
+        
         let keepTransactions = []
         for(let fighters of this.pendingTransactions) {
             fighters.update(dt)
@@ -234,44 +191,11 @@ export default class Game {
             this.suppressClick = 0
             return
         }
-        //event.preventDefault()
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
-        this.raycaster.setFromCamera(this.mouse, this.camera)
-
-        for(let p of this.planets) {
-            let intersects = this.raycaster.intersectObject(p.mesh, false)
-            if(intersects.length > 0) p.select()
-            else p.deselect()
-        }
-
-        let intersects = this.raycaster.intersectObject(this.dyson.mesh, true)
-        if(intersects.length > 0) this.dyson.click = intersects[0].faceIndex
-        else this.dyson.click = -1
+        this.player.click(event)
     }
 
     mouseMove(event) {
-        //event.preventDefault()
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
-        this.raycaster.setFromCamera(this.mouse, this.camera)
-
-        for(let p of this.planets) {
-            let intersects = this.raycaster.intersectObject(p.mesh, false)
-            p.hover = intersects.length > 0
-        }
-        for(let r of this.roads) {
-            r.material = r.arrowMaterial.color.set(0x7FFF7F)
-            if(r.selected) {
-                r.arrowMesh.layers.disable(BLOOM_LAYER)
-                let intersects = this.raycaster.intersectObject(r.arrowMesh, false)
-                if(intersects.length > 0) {
-                    r.material = r.arrowMaterial.color.set(0xFFFFFF)
-                    r.arrowMesh.layers.enable(BLOOM_LAYER)
-                }
-            }
-        }
-
+        this.player.mouseMove(event)
     }
 
     resize() {
