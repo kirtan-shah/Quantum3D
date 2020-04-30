@@ -18,7 +18,7 @@ export default class Stars {
         }
         
         this.geometry = new BufferGeometry().setFromPoints(this.points)
-        this.material = new PointsMaterial( { size: 10, sizeAttenuation: true, map: Stars.sprite, alphaTest: .1,
+        this.material = new PointsMaterial( { size: 15, sizeAttenuation: true, map: Stars.sprite, alphaTest: .1,
             transparent: true, color: 0x888888 } )
         this.mesh = new Points(this.geometry, this.material)
         this.mesh.layers.enable(BLOOM_LAYER)

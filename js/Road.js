@@ -1,4 +1,4 @@
-import { Euler, Mesh, MeshPhongMaterial, CylinderBufferGeometry, MeshBasicMaterial, Vector3 } from './three/build/three.module.js'
+import { Euler, Mesh, MeshPhongMaterial, CylinderBufferGeometry, MeshBasicMaterial, Vector3, Group } from './three/build/three.module.js'
 import { thickLine } from './utils.js'
 import { BLOOM_LAYER } from './constants.js'
 
@@ -11,15 +11,22 @@ export default class Road {
         p1.roads.push(this)
         p2.roads.push(this)
 
-        this.arrowGeometry = new CylinderBufferGeometry(.2, .5, 1.5, 8, 2)
+        this.arrowGeometry = new CylinderBufferGeometry(.2, .6, 1.5, 8, 2)
         this.transparentMaterial = new MeshBasicMaterial({ transparent: true, opacity: 0 })
         this.arrowMaterial = new MeshPhongMaterial({ color: 0xFFFFFF, specular: 0x333333, shininess: 30, flatShading: true })
         this.arrowMesh = new Mesh(this.arrowGeometry, this.transparentMaterial)
         this.arrowMesh.setRotationFromEuler(this.lineMesh.rotation.clone())
         this.arrowMesh.direction = new Vector3().subVectors(p2.position, p1.position)
         this.arrowMesh.road = this
+    
+        this.position = new Vector3().addVectors(p1.position, p2.position).divideScalar(2)
+        this.arrowMesh.position.copy(this.position)
 
         this.selected = false
+    }
+    
+    reset() {
+        this.arrowMesh.position.copy(this.position)
     }
 
     select(planet) {
@@ -56,7 +63,8 @@ export default class Road {
         return null
     }
 
+    /*
     get position() {
-        return this.lineMesh.position
-    }
+        return this.position
+    }*/
 }

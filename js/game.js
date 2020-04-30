@@ -33,7 +33,7 @@ export default class Game {
         this.planets = [
             new Planet(3, new Vector3(10, 0, 0)),
             //new Planet(1, new Vector3(-6, 6, 0)),
-            //new Planet(1, new Vector3(6, -6, 0)),
+            new Planet(2, new Vector3(10, -10, 0)),
             new Planet(3, new Vector3(-10,  0, 0)),
             //new Planet(1, new Vector3(0, 0, 6))
         ]
@@ -75,7 +75,7 @@ export default class Game {
         let ambient = new AmbientLight(0xffffffff, 2)
         scene.add(ambient)  
 
-        this.stars = new Stars(700, 5000)
+        this.stars = new Stars(800, 5000)
         scene.add(this.stars.mesh)
         
         //bloom effect
@@ -119,7 +119,7 @@ export default class Game {
         })
         this.dragControls.addEventListener('dragend', (e) => {
             this.orbitControls.enabled = true
-            e.object.position.set(0, 0, 0)
+            e.object.road.reset()
             $('#move-label').hide()
             let { from, to, count } = this.planetTransact
             if(from !== null && to !== null && count !== 0) {
@@ -131,8 +131,12 @@ export default class Game {
             from.deselect()
         })
         this.dragControls.addEventListener('drag', (e) => {
-            e.object.position.projectOnVector(e.object.direction) //along road line
             let planet = e.object.road.which()
+            e.object.position.sub(e.object.road.position).projectOnVector(e.object.direction).add(e.object.road.position) //along road line
+            if(e.object.position.distanceTo(planet.position) < e.object.road.position.distanceTo(planet.position)) {
+                e.object.position.copy(e.object.road.position)
+            }
+
             let n = planet.fighters.n
             let ratio = new Vector3().subVectors(e.object.position, e.object.road.position).length() 
                 / (e.object.direction.length() * .45 - e.object.road.other(planet).radius)
@@ -242,7 +246,7 @@ export default class Game {
     }
 
     mouseMove(event) {
-        event.preventDefault()
+        //event.preventDefault()
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
         this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
         this.raycaster.setFromCamera(this.mouse, this.camera)

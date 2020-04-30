@@ -59,8 +59,10 @@ window.addEventListener('resize', () => {
     renderer.setSize(width, height)
     if(gameState) gameState.resize()
 })
+
 window.addEventListener('mousemove', (event) => { gameState.mouseMove(event) })
+window.addEventListener('touchstart', (event) => { console.log(event);gameState.mouseMove(event.touches[0]);gameState.click(event.touches[0]) })
 
 function onClick(event) { gameState.click(event) }
-window.addEventListener('touchstart', onClick)
+//window.addEventListener('touchend', (event) => { gameState.mouseMove(event.touches[0]);gameState.click(event.touches[0]) })
 window.addEventListener('click', onClick)
