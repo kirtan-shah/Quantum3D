@@ -128,14 +128,14 @@ export default class Game {
                 let transaction = new TransactingFighters(from, to, count, particleData, points)
                 scene.add(transaction.mesh)
                 this.pendingTransactions.push(transaction)
+                from.deselect()
             }
-            from.deselect()
         })
         this.dragControls.addEventListener('drag', (e) => {
             let planet = e.object.road.which()
-            e.object.position.sub(e.object.road.position).projectOnVector(e.object.direction).add(e.object.road.position) //along road line
+            e.object.position.projectOnVector(e.object.direction) //along road line
             if(e.object.position.distanceTo(planet.position) < e.object.road.position.distanceTo(planet.position)) {
-                e.object.position.copy(e.object.road.position)
+                e.object.road.reset()
             }
 
             let n = planet.fighters.n
