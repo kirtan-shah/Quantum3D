@@ -1,6 +1,7 @@
 import { SphereGeometry, MeshLambertMaterial, Mesh, Group } from './three/build/three.module.js'
 import Fighters from './Fighters.js'
 import { BLOOM_LAYER } from './constants.js'
+import { getCoords } from './utils.js'
 
 export default class Planet {
 
@@ -46,6 +47,14 @@ export default class Planet {
             this.hovered = false
         }
         this.fighters.update(dt)
+    }
+
+    showLabel() {
+        $('#planet-label').text(`Fighters: ${this.fighters.n}`)
+        $('#planet-label').show()
+    }
+    static hideLabel() {
+        $('#planet-label').fadeOut(200)
     }
 
     select() {

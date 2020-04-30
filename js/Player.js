@@ -17,7 +17,7 @@ export default class Player {
         this.planets.forEach(p => game.scene.add(p.group))
         //this.planets[0].fighters.add(1024)
         //this.planets[1].fighters.add(1024)
-        this.planets[2].fighters.add(10000)
+        //this.planets[2].fighters.add(10000)
 
         this.roads = []
         for(let i = 0; i < this.planets.length; i++) {
@@ -67,10 +67,17 @@ export default class Player {
     }
 
     mouseMove(raycaster) { 
+        let oneHovered = false
         for(let p of this.planets) {
             let intersects = raycaster.intersectObject(p.mesh, false)
             p.hover = intersects.length > 0
+            if(p.hover) {
+                p.showLabel(this.game.camera)
+                oneHovered = true
+            }
         }
+        if(!oneHovered) Planet.hideLabel()
+
         for(let r of this.roads) {
             r.material = r.arrowMaterial.color.set(0x7FFF7F)
             if(r.selected) {

@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Thu Apr 30 2020 15:29:03 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* js/Fighters.js
+* js/Player.js
+* js/TransactingFighters.js
+
+
+Created files:
+* .autogit/logs/log-30-3-2020-14-58-56.txt
+
+
+Deleted files:
+
+
+Renamed files:

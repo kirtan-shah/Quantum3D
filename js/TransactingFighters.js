@@ -12,9 +12,9 @@ export default class TransactingFighters {
         for(let i = 0; i < n; i++) {
             let p = new Vector3(this.points[i*3], this.points[i*3 + 1], this.points[i*3 + 2])
             let q = p.clone().applyAxisAngle(particleData[i].angle, .001)
-            let velocity = new Vector3().subVectors(q, p).setLength(3.6)
+            let velocity = new Vector3().subVectors(q, p).setLength(4.5)
             particleData[i].velocity = velocity
-            particleData[i].endDist = this.to.radius * (Math.random() / 3 + 1.1)
+            particleData[i].endDist = this.to.radius * (Math.random() / 4 + 1.1)
             p.add(from.position)
             this.points[i*3 + 0] = p.x
             this.points[i*3 + 1] = p.y

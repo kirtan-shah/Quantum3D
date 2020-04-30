@@ -1,10 +1,22 @@
 
-* {
+.theme {
     font-family: 'Space Mono', monospace;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    background: transparent;
+    color: white;
+    border: 2px solid #0dd0d6;
+    border-radius: 2px;
+    
+}
+.movable {
+    position: absolute;
 }
 
-.glow {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+#planet-label {
+    padding: 1em;
+    position: absolute;
+    right: 2em;
+    bottom: 2em;
 }
 
 #gui {
@@ -16,24 +28,12 @@
 }
 
 button {
-    background: transparent;
-    color: white;
-    border: 2px solid #0dd0d6;
-    border-radius: 2px;
     outline: none;
     transition: 200ms all;
 }
 
 button:hover {
     background: rgba(0, 127, 127, .4)
-}
-
-#move-label {
-    position: absolute;
-    background: transparent;
-    color: white;
-    border: 2px solid #0dd0d6;
-    border-radius: 2px;
 }
 
 #loading-screen {

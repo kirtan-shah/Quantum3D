@@ -26,6 +26,13 @@ function rotationFromPoints(pointX, pointY) {
     return rotation
 }
 
+function getCoords(pos, camera) {
+    let coords = pos.clone().project(camera)
+    coords.x = (coords.x * window.innerWidth/2) + window.innerWidth/2
+    coords.y = - (coords.y * window.innerHeight/2) + window.innerHeight/2
+    return coords
+}
+
 function shuffleArray(array) {
 	let currentIndex = array.length
 	let temporaryValue, randomIndex
@@ -57,4 +64,4 @@ function shiftElementsBack(arr, i, n, end) {
     }
 }
 
-export { thickLine, rotationFromPoints, shuffleArray, randomGaussian, shiftElementsBack }
+export { thickLine, rotationFromPoints, shuffleArray, randomGaussian, shiftElementsBack, getCoords }

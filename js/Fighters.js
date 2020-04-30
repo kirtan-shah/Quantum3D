@@ -3,7 +3,7 @@ import Stars from './Stars.js'
 import { randomGaussian } from './utils.js'
 
 export default class Fighters {
-    constructor(planet, n, bufferLength=16384) {
+    constructor(planet, n, bufferLength=4096) {
         this.planet = planet
         this.particleData = new Array(bufferLength)
         this.points = new Float32Array(bufferLength * 3)

@@ -11,6 +11,7 @@ import Player from './Player.js'
 import { DysonMesh } from './DysonSphere.js'
 import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
 import TransactingFighters from './TransactingFighters.js'
+import { getCoords } from './utils.js'
 
 export default class Game {
     constructor(renderer, scene, camera, loader) {
@@ -105,9 +106,7 @@ export default class Game {
                 / (arrow.direction.length() * .45 - to.radius)
             let number = MathUtils.clamp(Math.round(ratio*n), 0, n)
 
-            let coords = arrowPos.clone().project(this.camera)
-            coords.x = (coords.x * window.innerWidth/2) + window.innerWidth/2
-            coords.y = - (coords.y * window.innerHeight/2) + window.innerHeight/2
+            let coords = getCoords(arrowPos, this.camera)
             $('#move-label').text(`${number}/${n}`)
             $('#move-label').css({ left: coords.x - $('#move-label').width()/2, top: coords.y - 60 })
             $('#move-label').show()
