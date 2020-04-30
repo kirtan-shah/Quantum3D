@@ -48,7 +48,7 @@ export default class Player {
         
         this.planets[2].fighters.add(Math.floor(this.energyAccumulator))
         this.energyAccumulator = this.energyAccumulator % 1
-        this.energyAccumulator += this.powerPanels * .1 * dt
+        this.energyAccumulator += this.powerPanels * 3 * dt
         console.log(this.energyAccumulator)
     }
 
