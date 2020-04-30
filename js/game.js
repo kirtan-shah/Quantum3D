@@ -132,34 +132,38 @@ export default class Game {
             }
         })
         this.dragControls.addEventListener('drag', (e) => {
-            let planet = e.object.road.which()
-            e.object.position.projectOnVector(e.object.direction) //along road line
-            if(e.object.position.distanceTo(planet.position) < e.object.road.position.distanceTo(planet.position)) {
-                e.object.road.reset()
+            let road = e.object.road
+            let from = road.which()
+            let to = road.other(from)
+            let arrow = e.object
+            let arrowPos = arrow.position
+            arrowPos.projectOnVector(arrow.direction) //along road line
+            if(arrowPos.distanceTo(from.position) < road.initPos.distanceTo(from.position)) {
+                road.reset()
             }
 
-            let n = planet.fighters.n
-            let ratio = new Vector3().subVectors(e.object.position, e.object.road.position).length() 
-                / (e.object.direction.length() * .45 - e.object.road.other(planet).radius)
+            let n = from.fighters.n
+            let ratio = new Vector3().subVectors(arrowPos, road.initPos).length() 
+                / (arrow.direction.length() * .45 - to.radius)
             let number = MathUtils.clamp(Math.round(ratio*n), 0, n)
 
-            let coords = e.object.position.clone().project(this.camera)
+            let coords = arrowPos.clone().project(this.camera)
             coords.x = (coords.x * window.innerWidth/2) + window.innerWidth/2
             coords.y = - (coords.y * window.innerHeight/2) + window.innerHeight/2
             $('#move-label').text(`${number}/${n}`)
             $('#move-label').css({ left: coords.x - $('#move-label').width()/2, top: coords.y - 60 })
             $('#move-label').show()
-            this.planetTransact = { from: planet, to: e.object.road.other(planet), count: number }
+            this.planetTransact = { from, to, count: number }
         })
     }
 
-    update() {
+    update(dt) {
         this.orbitControls.update()
-        for(let p of this.planets) p.update()
+        for(let p of this.planets) p.update(dt)
         this.dyson.update()
         let keepTransactions = []
         for(let fighters of this.pendingTransactions) {
-            fighters.update()
+            fighters.update(dt)
             if(fighters.n !== 0) keepTransactions.push(fighters)
         }
         this.pendingTransactions = keepTransactions

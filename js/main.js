@@ -37,14 +37,17 @@ loader.add('../shader/add.frag', 'file')
 loader.load(() => {
     gameState = new Game(renderer, scene, camera, loader)
     requestAnimationFrame(render)
+    clock.start()
 })
 
-function update() {
+let clock = new THREE.Clock()
+
+function update(dt) {
     stats.update()
-    if(gameState) gameState.update()
+    if(gameState) gameState.update(dt)
 }
 function render() {
-    update()
+    update(clock.getDelta())
     requestAnimationFrame(render)
     gameState.draw()
 }

@@ -34,7 +34,7 @@ export default class Planet {
     get y() { return this.group.position.y }
     get z() { return this.group.position.z }
 
-    update() {
+    update(dt) {
         if(this.hover && !this.hovered) {
             this.tl.clear()
             this.tl.to(this.group.scale, .4, { x: 1.2, y: 1.2, z: 1.2, ease: Expo.easeOut })
@@ -45,7 +45,7 @@ export default class Planet {
             this.tl.to(this.group.scale, .4, { x: 1, y: 1, z: 1, ease: Expo.easeOut })
             this.hovered = false
         }
-        this.fighters.update()
+        this.fighters.update(dt)
     }
 
     select() {

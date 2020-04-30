@@ -19,10 +19,10 @@ export default class Fighters {
         this.n = n
     }
 
-    update() {
+    update(dt) {
         for(let i = 0; i < this.n; i++) {
             let v = new Vector3(this.points[i*3], this.points[i*3 + 1], this.points[i*3 + 2])
-            v.applyAxisAngle(this.particleData[i].angle, this.particleData[i].orbitSpeed)
+            v.applyAxisAngle(this.particleData[i].angle, this.particleData[i].orbitSpeed * dt)
             this.points[i*3 + 0] = v.x
             this.points[i*3 + 1] = v.y
             this.points[i*3 + 2] = v.z
@@ -37,7 +37,7 @@ export default class Fighters {
             let angle = new Vector3(randomGaussian(), randomGaussian(), randomGaussian()).normalize()
             let initialPos = new Vector3(Math.random(), Math.random(), Math.random())
             let orbitPlane = new Plane(angle.clone())
-            let orbitSpeed = (Math.random() * 0.01) + 0.01
+            let orbitSpeed = (Math.random() * 0.6) + 0.6
             if(Math.random() < .5) orbitSpeed *= -1
             orbitPlane.projectPoint(initialPos, v)
             v.setLength(this.planet.radius * (Math.random() / 10 + 1.2))

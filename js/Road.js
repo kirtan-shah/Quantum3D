@@ -20,7 +20,7 @@ export default class Road {
         this.arrowMesh = new Mesh(this.arrowGeometry, this.transparentMaterial)
         this.arrowMesh.setRotationFromEuler(this.lineMesh.rotation.clone())
         this.arrowMesh.direction = new Vector3().subVectors(p2.position, p1.position)
-        this.initPos = this.arrowMesh.direction.clone().setLength(0.75)
+        this.initPos = this.arrowMesh.direction.clone().setLength(0.75).negate()
         this.reset()
         this.arrowMesh.road = this
 
@@ -31,7 +31,7 @@ export default class Road {
     }
     
     reset() {
-        this.arrowMesh.position.copy(this.arrowMesh.direction.clone().setLength(0.75).negate())
+        this.arrowMesh.position.copy(this.initPos)
     }
 
     select(planet) {
