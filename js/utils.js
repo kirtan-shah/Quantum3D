@@ -19,6 +19,13 @@ function thickLine(pointX, pointY, thickness, color) {
     return mesh
 }
 
+function rotationFromPoints(pointX, pointY) {
+    let direction = new Vector3().subVectors(pointY, pointX)
+    let arrow = new ArrowHelper(direction.clone().normalize(), pointX)
+    let rotation = new Euler().setFromQuaternion(arrow.quaternion)
+    return rotation
+}
+
 function shuffleArray(array) {
 	let currentIndex = array.length
 	let temporaryValue, randomIndex
@@ -50,4 +57,4 @@ function shiftElementsBack(arr, i, n, end) {
     }
 }
 
-export { thickLine, shuffleArray, randomGaussian, shiftElementsBack }
+export { thickLine, rotationFromPoints, shuffleArray, randomGaussian, shiftElementsBack }

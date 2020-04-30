@@ -1,5 +1,5 @@
 import { Euler, Mesh, MeshPhongMaterial, CylinderBufferGeometry, MeshBasicMaterial, Vector3, Group } from './three/build/three.module.js'
-import { thickLine } from './utils.js'
+import { thickLine, rotationFromPoints } from './utils.js'
 import { BLOOM_LAYER } from './constants.js'
 
 export default class Road {
@@ -10,6 +10,7 @@ export default class Road {
         this.group = new Group()
 
         this.lineMesh = thickLine(p1.position, p2.position, .15, 0xFFFFFF)
+        this.reverseRotation = rotationFromPoints(p2.position, p1.position)
         p1.roads.push(this)
         p2.roads.push(this)
 
@@ -19,6 +20,7 @@ export default class Road {
         this.arrowMesh = new Mesh(this.arrowGeometry, this.transparentMaterial)
         this.arrowMesh.setRotationFromEuler(this.lineMesh.rotation.clone())
         this.arrowMesh.direction = new Vector3().subVectors(p2.position, p1.position)
+        this.arrowMesh.position.sub(this.arrowMesh.direction.clone().setLength(0.75))
         this.arrowMesh.road = this
 
         this.group.add(this.lineMesh, this.arrowMesh)
@@ -38,8 +40,8 @@ export default class Road {
         this.arrowMesh.material = this.arrowMaterial
 
         let rot = this.lineMesh.rotation.clone().toVector3()
-        if(planet == this.p2) this.arrowMesh.setRotationFromEuler(new Euler().setFromVector3(rot.negate()))
-        else this.arrowMesh.setRotationFromEuler(new Euler().setFromVector3(rot))
+        if(planet == this.p2) rot = this.reverseRotation.toVector3()
+        this.arrowMesh.setRotationFromEuler(new Euler().setFromVector3(rot))
 
         this.selected = true
     }
