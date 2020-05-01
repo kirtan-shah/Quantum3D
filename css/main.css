@@ -37,17 +37,14 @@ icon {
     right: 0;
     top: 0;
     padding: 0.5em;
-    white-space: nowrap;
+    text-align: right;
 }
 #resources-info * {
-    display: inline-block;
-}
-#energy {
     border: none;
     font-size: 1.5em;
 }
-#resources-info img {
-    width: calc(1.5em - 3px);
+#resources-info icon {
+    font-size: 1em;
 }
 
 button {

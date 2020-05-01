@@ -38,8 +38,8 @@ export default class Player {
         this.dyson.update()
         this.powerPanels = 0
         this.shieldPanels = 0
-        this.energy = 0
-        this.addPowerPanel()
+        this.energy = 10
+        this.updateCost()
     }
 
     update(dt) {
@@ -47,12 +47,19 @@ export default class Player {
         this.dyson.update()
         
         this.energy += this.powerPanels * 1 * dt
-        $('#energy').text(~~this.energy)
+        $('#energy').html(~~this.energy + "<icon>⚡</icon>")
+    }
+
+    cost() {
+        return ~~(10*Math.pow(1.4, this.powerPanels))
+    }
+    updateCost() {
+        $('#power-panel').html(`Power Panel <icon>⚡</icon>${this.cost()}`)
     }
 
     addPowerPanel() {
-        let cost = 10*this.powerPanels
-        if(this.energy < cost) return
+        if(this.energy < this.cost()) return
+        this.energy -= this.cost()
         for(let face of this.dyson.geometry.faces) {
             if(face.index == this.dyson.count) {
                 face.bloom = true
@@ -61,8 +68,7 @@ export default class Player {
         }
         this.dyson.count++
         this.powerPanels++
-        this.energy -= cost
-        $('#power-panel').html(`Power Panel <icon>⚡</icon>${10*this.powerPanels}`)
+        this.updateCost()
     }
     addShieldPanel() {
         if(this.energy < 10) return

@@ -1,4 +1,4 @@
-import { IcosahedronGeometry, Geometry, MeshBasicMaterial, MeshPhongMaterial, Vector3, Face3, DoubleSide, Mesh } from './three/build/three.module.js'
+import { IcosahedronGeometry, Geometry, MeshBasicMaterial, MeshPhongMaterial, Vector3, Face3, DoubleSide, Mesh, MeshPhysicalMaterial } from './three/build/three.module.js'
 import { shuffleArray } from './utils.js'
 
 
@@ -43,7 +43,8 @@ class DysonSphere {
         this.count = 0 //geometry.faces.length
         this.geometry = geometry
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
-        this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
+        this.shieldMaterial = new MeshPhysicalMaterial({ color: 0x898989, emissive: 0x282828, roughness: 1, metalness: 1, reflectivity: 1, clearcoat: 1, flatShading: false, side: DoubleSide })
+        this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, this.shieldMaterial, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
         this.mesh.dyson = this
 
@@ -53,7 +54,7 @@ class DysonSphere {
 
     update() {
         for(let i = 0; i < this.geometry.faces.length; i++) {
-            this.geometry.faces[i].materialIndex =  this.geometry.faces[i].index < this.count ? 1 : 0
+            this.geometry.faces[i].materialIndex =  this.geometry.faces[i].index < this.count ? (this.geometry.faces[i].bloom ? 1 : 2) : 0
         }
         this.geometry.sortFacesByMaterialIndex()
         this.geometry.elementsNeedUpdate = true
@@ -67,8 +68,6 @@ class DysonSphere {
                 tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 this.clicked = this.click
-                face.hasBloom = face.bloom
-                face.bloom = false
             }
             if(this.click != -1) {
                 let tl = gsap.timeline()
@@ -80,7 +79,6 @@ class DysonSphere {
                 tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 this.clicked = this.click
-                face.bloom = face.hasBloom
             }
         }
     }
@@ -92,7 +90,7 @@ class DysonSphere {
     darken() {
         for(let i = 0; i < this.geometry.faces.length; i++) {
             if(this.geometry.faces[i].bloom) continue
-            if(this.geometry.faces[i].materialIndex == 1) this.geometry.faces[i].materialIndex = 2
+            if(this.geometry.faces[i].materialIndex == 1 || this.geometry.faces[i].materialIndex == 2) this.geometry.faces[i].materialIndex = 3
         }
         this.geometry.elementsNeedUpdate = true
     }
@@ -100,7 +98,7 @@ class DysonSphere {
     restore() {
         for(let i = 0; i < this.geometry.faces.length; i++) {
             if(this.geometry.faces[i].bloom) continue
-            if(this.geometry.faces[i].materialIndex == 2) this.geometry.faces[i].materialIndex = 1
+            if(this.geometry.faces[i].materialIndex == 3) this.geometry.faces[i].materialIndex = this.geometry.faces[i].bloom ? 1 : 2
         }
         this.geometry.elementsNeedUpdate = true
     }
