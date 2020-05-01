@@ -27,6 +27,25 @@
     padding: 2em;
 }
 
+#resources-info {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0.5em;
+    white-space: nowrap;
+}
+#resources-info * {
+    display: inline-block;
+}
+#energy {
+    border: none;
+    font-size: 1.5em;
+}
+#resources-info img {
+    width: calc(1.5em - 3px);
+}
+
 button {
     outline: none;
     transition: 200ms all;

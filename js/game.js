@@ -117,6 +117,7 @@ export default class Game {
     update(dt) {
         this.orbitControls.update()
         this.player.update(dt)
+        this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
         
         let keepTransactions = []
         for(let fighters of this.pendingTransactions) {
@@ -184,6 +185,7 @@ export default class Game {
 
         this.bloom = bloom
         this.combiner = combiner
+        this.bloomPass = bloomPass
     }
 
     click(event) {

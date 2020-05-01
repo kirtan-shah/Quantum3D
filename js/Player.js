@@ -38,19 +38,20 @@ export default class Player {
         this.dyson.update()
         this.powerPanels = 0
         this.shieldPanels = 0
-
-        this.energyAccumulator = 0
+        this.energy = 10
+        this.addPowerPanel()
     }
 
     update(dt) {
         for(let p of this.planets) p.update(dt)
         this.dyson.update()
         
-        this.energyAccumulator = this.energyAccumulator % 1
-        this.energyAccumulator += this.powerPanels * .1 * dt
+        this.energy += this.powerPanels * 1 * dt
+        $('#energy').text(~~this.energy)
     }
 
     addPowerPanel() {
+        if(this.energy < 10) return
         for(let face of this.dyson.geometry.faces) {
             if(face.index == this.dyson.count) {
                 face.bloom = true
@@ -59,10 +60,13 @@ export default class Player {
         }
         this.dyson.count++
         this.powerPanels++
+        this.energy -= 10
     }
     addShieldPanel() {
+        if(this.energy < 10) return
         this.dyson.count++
         this.shieldPanels++
+        this.energy -= 10
     }
 
     mouseMove(raycaster) { 
