@@ -67,6 +67,8 @@ class DysonSphere {
                 tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 this.clicked = this.click
+                face.hasBloom = face.bloom
+                face.bloom = false
             }
             if(this.click != -1) {
                 let tl = gsap.timeline()
@@ -78,6 +80,7 @@ class DysonSphere {
                 tl.to(this.geometry.vertices[face.b], .4, { x: b.x, y: b.y, z: b.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 tl.to(this.geometry.vertices[face.c], .4, { x: c.x, y: c.y, z: c.z, ease: Expo.easeOut }, 0).eventCallback('onUpdate', this.updateAnim.bind(this))
                 this.clicked = this.click
+                face.bloom = face.hasBloom
             }
         }
     }
