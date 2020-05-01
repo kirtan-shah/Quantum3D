@@ -12,6 +12,10 @@
     position: absolute;
 }
 
+icon {
+    text-shadow: none !important;
+}
+
 #planet-label {
     padding: 1em;
     position: absolute;

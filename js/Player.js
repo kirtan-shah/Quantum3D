@@ -38,7 +38,7 @@ export default class Player {
         this.dyson.update()
         this.powerPanels = 0
         this.shieldPanels = 0
-        this.energy = 5
+        this.energy = 0
         this.addPowerPanel()
     }
 
@@ -51,7 +51,7 @@ export default class Player {
     }
 
     addPowerPanel() {
-        let cost = 10*Math.pow(2, this.powerPanels - 1)
+        let cost = 10*this.powerPanels
         if(this.energy < cost) return
         for(let face of this.dyson.geometry.faces) {
             if(face.index == this.dyson.count) {
@@ -62,6 +62,7 @@ export default class Player {
         this.dyson.count++
         this.powerPanels++
         this.energy -= cost
+        $('#power-panel').html(`Power Panel <icon>⚡</icon>${10*this.powerPanels}`)
     }
     addShieldPanel() {
         if(this.energy < 10) return
