@@ -1,0 +1,21 @@
+-------------------- Auto-Git Log --------------------
+		Fri May 01 2020 01:05:59 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* css/main.css
+* index.html
+* js/Player.js
+* js/game.js
+
+
+Created files:
+* .autogit/logs/log-1-4-2020-0-35-52.txt
+* img/credits.txt
+* img/technology.png
+
+
+Deleted files:
+
+
+Renamed files:
