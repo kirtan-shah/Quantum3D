@@ -38,7 +38,7 @@ export default class Player {
         this.dyson.update()
         this.powerPanels = 0
         this.shieldPanels = 0
-        this.energy = 10
+        this.energy = 10000
         this.updateCost()
     }
 

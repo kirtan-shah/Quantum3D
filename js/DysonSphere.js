@@ -43,7 +43,8 @@ class DysonSphere {
         this.count = 0 //geometry.faces.length
         this.geometry = geometry
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
-        this.shieldMaterial = new MeshPhysicalMaterial({ color: 0x898989, emissive: 0x282828, roughness: 1, metalness: 1, reflectivity: 1, clearcoat: 1, flatShading: false, side: DoubleSide })
+        this.shieldMaterial = new MeshPhysicalMaterial({ color: 0xffffff, emissive: 0x282828, roughness: 1, metalness: 1, reflectivity: 1, clearcoat: 1, flatShading: false })
+        //this.shieldMaterial = new MeshBasicMaterial({ color: 0x898989, side: DoubleSide })
         this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, this.shieldMaterial, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
         this.mesh.dyson = this
