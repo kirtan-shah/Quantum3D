@@ -15,7 +15,7 @@ export default class Player {
             new Planet(3, new Vector3(-10,  0, 0))
         ]
         this.planets.forEach(p => game.scene.add(p.group))
-        //this.planets[0].fighters.add(1024)
+        this.planets[0].fighters.add(1024)
         //this.planets[1].fighters.add(1024)
         //this.planets[2].fighters.add(10000)
 
@@ -46,7 +46,6 @@ export default class Player {
         for(let p of this.planets) p.update(dt)
         this.dyson.update()
         
-        this.planets[2].fighters.add(Math.floor(this.energyAccumulator))
         this.energyAccumulator = this.energyAccumulator % 1
         this.energyAccumulator += this.powerPanels * .1 * dt
     }
