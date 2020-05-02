@@ -53,8 +53,8 @@ export default class Player {
         
         this.energy += this.powerPanels * 1 * dt
         this.shield = this.powerPanels * 10 + this.shieldPanels * 100
-        $('#energy').html(~~this.energy + "<icon>⚡</icon>")
-        $('#shield').html(~~this.shield + "<icon>🛡️</icon>")
+        $('#energy').html(~~this.energy + " <icon>⚡</icon>")
+        $('#shield').html(~~this.shield + " <icon>🛡️</icon>")
     }
 
     powerPanelCost() {

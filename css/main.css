@@ -51,6 +51,9 @@ icon {
 #resources-info icon {
     font-size: 1em;
 }
+#resources-info img {
+    width: 0.8em;
+}
 
 button {
     outline: none;
