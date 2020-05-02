@@ -57,13 +57,13 @@ export default class Player {
     }
 
     powerPanelCost() {
-        return ~~(10*Math.pow(1.1, this.powerPanels))
+        return ~~(10*Math.pow(1.07, this.powerPanels))
     }
     updatePowerPanelCost() {
         $('#power-panel').html(`Power Panel <icon>⚡</icon>${this.powerPanelCost()}`)
     }
     shieldPanelCost() {
-        return ~~(5*Math.pow(1.05, this.shieldPanels))
+        return ~~(5*Math.pow(1.06, this.shieldPanels))
     }
     updateShieldPanelCost() {
         $('#shield-panel').html(`Shield Panel <icon>⚡</icon>${this.shieldPanelCost()}`)
