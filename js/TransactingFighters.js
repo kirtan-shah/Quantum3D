@@ -43,7 +43,7 @@ export default class TransactingFighters {
             this.points[i*3 + 1] = p.y
             this.points[i*3 + 2] = p.z
 
-            if(p.distanceTo(this.to) <= this.particleData[i].endDist) {
+            if(p.distanceTo(this.to.position) <= this.particleData[i].endDist) {
                 removeIndices.push(i)
                 let rand = new Vector3(Math.random(), Math.random(), Math.random())
                 let p3 = new Vector3().crossVectors(rand, new Vector3().subVectors(p, this.to.position))
