@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Fri May 01 2020 23:11:42 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* js/DysonSphere.js
+* js/main.js
+
+
+Created files:
+* .autogit/logs/log-1-4-2020-22-41-36.txt
+
+
+Deleted files:
+
+
+Renamed files:
