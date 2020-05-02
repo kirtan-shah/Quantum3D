@@ -71,7 +71,7 @@ export default class Player {
     }
 
     addPowerPanel() {
-        if(this.energy < this.powerPanelCost()) return
+        if(this.energy < this.powerPanelCost() || this.shieldPanels + this.powerPanels >= 80) return
         this.energy -= this.powerPanelCost()
         for(let face of this.dyson.geometry.faces) {
             if(face.index == this.dyson.count) {
@@ -84,7 +84,7 @@ export default class Player {
         this.updatePowerPanelCost()
     }
     addShieldPanel() {
-        if(this.energy < this.shieldPanelCost()) return
+        if(this.energy < this.shieldPanelCost() || this.shieldPanels + this.powerPanels >= 80) return
         this.energy -= this.shieldPanelCost()
         this.dyson.count++
         this.shieldPanels++
