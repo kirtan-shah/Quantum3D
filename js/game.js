@@ -87,6 +87,7 @@ export default class Game {
             $('#move-label').hide()
             let { from, to, count } = this.planetTransact
             if(from !== null && to !== null && count !== 0) {
+                new Audio("/sounds/move.wav").play()
                 let { particleData, points } = from.fighters.add(-count)
                 let transaction = new TransactingFighters(from, to, count, particleData, points)
                 scene.add(transaction.mesh)
