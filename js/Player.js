@@ -42,7 +42,8 @@ export default class Player {
         this.powerPanels = 0
         this.shieldPanels = 0
         this.energy = 10000
-        this.updateCost()
+        this.updatePowerPanelCost()
+        this.updateShieldPanelCost()
     }
 
     update(dt) {
@@ -50,19 +51,27 @@ export default class Player {
         this.dyson.update()
         
         this.energy += this.powerPanels * 1 * dt
+        this.shield = this.powerPanels * 10 + this.shieldPanels * 100
         $('#energy').html(~~this.energy + "<icon>⚡</icon>")
+        $('#shield').html(~~this.shield + "<icon>🛡️</icon>")
     }
 
-    cost() {
-        return ~~(10*Math.pow(1.4, this.powerPanels))
+    powerPanelCost() {
+        return ~~(10*Math.pow(1.1, this.powerPanels))
     }
-    updateCost() {
-        $('#power-panel').html(`Power Panel <icon>⚡</icon>${this.cost()}`)
+    updatePowerPanelCost() {
+        $('#power-panel').html(`Power Panel <icon>⚡</icon>${this.powerPanelCost()}`)
+    }
+    shieldPanelCost() {
+        return ~~(5*Math.pow(1.05, this.shieldPanels))
+    }
+    updateShieldPanelCost() {
+        $('#shield-panel').html(`Shield Panel <icon>⚡</icon>${this.shieldPanelCost()}`)
     }
 
     addPowerPanel() {
-        if(this.energy < this.cost()) return
-        this.energy -= this.cost()
+        if(this.energy < this.powerPanelCost()) return
+        this.energy -= this.powerPanelCost()
         for(let face of this.dyson.geometry.faces) {
             if(face.index == this.dyson.count) {
                 face.bloom = true
@@ -71,13 +80,15 @@ export default class Player {
         }
         this.dyson.count++
         this.powerPanels++
-        this.updateCost()
+        this.updatePowerPanelCost()
     }
     addShieldPanel() {
-        if(this.energy < 10) return
+        if(this.energy < this.shieldPanelCost()) return
+        this.energy -= this.shieldPanelCost()
         this.dyson.count++
         this.shieldPanels++
         this.energy -= 10
+        this.updateShieldPanelCost()
     }
 
     mouseMove(raycaster) { 

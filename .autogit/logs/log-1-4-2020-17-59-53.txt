@@ -1,0 +1,20 @@
+-------------------- Auto-Git Log --------------------
+		Fri May 01 2020 17:59:53 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* js/DysonSphere.js
+* js/Player.js
+* js/game.js
+* js/planet.js
+
+
+Created files:
+* .autogit/logs/log-1-4-2020-17-29-47.txt
+* img/etienne-martin-v6uiP2MD6vs-unsplash.jpg
+
+
+Deleted files:
+
+
+Renamed files:

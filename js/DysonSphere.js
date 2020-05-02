@@ -17,9 +17,9 @@ class DysonSphere {
             let b = icoGeometry.vertices[icoGeometry.faces[i].b].clone()
             let c = icoGeometry.vertices[icoGeometry.faces[i].c].clone()
             let centroid = new Vector3().add(a).add(b).add(c).divideScalar(3)
-            let k = 1.1
+            let k = 1
             let delta = new Vector3(k - 1, k - 1, k - 1).multiply(centroid)
-            let selectDelta = new Vector3(2.5, 2.5, 2.5).multiply(delta)
+            let selectDelta = new Vector3(.25, .25, .25).multiply(centroid)
 
             geometry.vertices.push(
                 a.add(delta),
@@ -43,8 +43,7 @@ class DysonSphere {
         this.count = 0 //geometry.faces.length
         this.geometry = geometry
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
-        this.shieldMaterial = new MeshBasicMaterial({ color: 0xffffff, map: new TextureLoader().load('/img/etienne-martin-v6uiP2MD6vs-unsplash.jpg')  })
-        this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, this.shieldMaterial, DysonSphere.invisibleMaterial ])
+        this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
         this.mesh.dyson = this
 
@@ -54,7 +53,7 @@ class DysonSphere {
 
     update() {
         for(let i = 0; i < this.geometry.faces.length; i++) {
-            this.geometry.faces[i].materialIndex =  this.geometry.faces[i].index < this.count ? (this.geometry.faces[i].bloom ? 1 : 2) : 0
+            this.geometry.faces[i].materialIndex =  this.geometry.faces[i].index < this.count ? 1 : 0
         }
         this.geometry.sortFacesByMaterialIndex()
         this.geometry.elementsNeedUpdate = true
@@ -90,7 +89,7 @@ class DysonSphere {
     darken() {
         for(let i = 0; i < this.geometry.faces.length; i++) {
             if(this.geometry.faces[i].bloom) continue
-            if(this.geometry.faces[i].materialIndex == 1 || this.geometry.faces[i].materialIndex == 2) this.geometry.faces[i].materialIndex = 3
+            if(this.geometry.faces[i].materialIndex == 1) this.geometry.faces[i].materialIndex = 2
         }
         this.geometry.elementsNeedUpdate = true
     }
@@ -98,7 +97,7 @@ class DysonSphere {
     restore() {
         for(let i = 0; i < this.geometry.faces.length; i++) {
             if(this.geometry.faces[i].bloom) continue
-            if(this.geometry.faces[i].materialIndex == 3) this.geometry.faces[i].materialIndex = this.geometry.faces[i].bloom ? 1 : 2
+            if(this.geometry.faces[i].materialIndex == 2) this.geometry.faces[i].materialIndex = 1
         }
         this.geometry.elementsNeedUpdate = true
     }

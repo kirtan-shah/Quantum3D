@@ -30,14 +30,17 @@ export default class Game {
 
         this.player = new Player(this)
 
-        
         let lights = [
-            new DirectionalLight(0xffffff, 2)
+            new DirectionalLight(0xffffff, 2, 0),
+            new DirectionalLight(0xffffff, 2, 0),
+            new DirectionalLight(0xffffff, 2, 0)
         ]
-        lights[0].position.set(-1, 1, 0).normalize()
+        lights[0].position.set(0, 1, 0)
+        lights[1].position.set(1, 1, 0)
+        lights[2].position.set(-1, -1, 0)
         lights.forEach(l => scene.add(l))
 
-        let ambient = new AmbientLight(0xdddddd)
+        let ambient = new AmbientLight(0xffffff, 2)
         scene.add(ambient)  
 
         this.stars = new Stars(800, 5000)
