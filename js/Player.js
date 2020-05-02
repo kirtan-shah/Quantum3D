@@ -62,12 +62,20 @@ export default class Player {
     }
     updatePowerPanelCost() {
         $('#power-panel').html(`Power Panel <icon>⚡</icon>${this.powerPanelCost()}`)
+        this.checkFilled()
     }
     shieldPanelCost() {
         return ~~(5*Math.pow(1.06, this.shieldPanels))
     }
     updateShieldPanelCost() {
         $('#shield-panel').html(`Shield Panel <icon>⚡</icon>${this.shieldPanelCost()}`)
+        this.checkFilled()
+    }
+    checkFilled() {
+        if(this.shieldPanels + this.powerPanels >= 80) {
+            $('#power-panel').addClass('disabled')
+            $('#shield-panel').addClass('disabled')
+        }
     }
 
     addPowerPanel() {

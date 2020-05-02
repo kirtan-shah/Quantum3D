@@ -1,4 +1,9 @@
 
+::selection {
+    color: none;
+    background: none;
+}
+
 .theme {
     font-family: 'Space Mono', monospace;
     text-shadow: 0 0 5px #fff, 0 0 10px #fff;
@@ -54,6 +59,14 @@ button {
 
 button:hover {
     background: rgba(0, 127, 127, .4)
+}
+
+.disabled {
+    border: none;
+    color: #a0a0a0;
+}
+.disabled:hover {
+    background: transparent;
 }
 
 #loading-screen {
