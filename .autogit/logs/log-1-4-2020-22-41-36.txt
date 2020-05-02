@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Fri May 01 2020 22:41:36 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* js/DysonSphere.js
+* js/Player.js
+* js/TransactingFighters.js
+
+
+Created files:
+* .autogit/logs/log-1-4-2020-22-11-31.txt
+
+
+Deleted files:
+
+
+Renamed files:

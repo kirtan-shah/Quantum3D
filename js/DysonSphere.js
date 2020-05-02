@@ -6,7 +6,7 @@ class DysonSphere {
 
     constructor(r, pos) {
         if(!DysonSphere.transparentMaterial) 
-            DysonSphere.transparentMaterial = new MeshBasicMaterial({ transparent: true, opacity: 0 })
+            DysonSphere.transparentMaterial = new MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false})
         if(!DysonSphere.invisibleMaterial)
             DysonSphere.invisibleMaterial = new MeshBasicMaterial({ color: 'black' })
 
@@ -42,7 +42,7 @@ class DysonSphere {
 
         this.count = 0 //geometry.faces.length
         this.geometry = geometry
-        this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true })
+        this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
         this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
         this.mesh.dyson = this

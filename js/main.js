@@ -13,7 +13,7 @@ setTimeout(() => {
 }, 2000)
 
 let canvas = document.createElement('canvas')
-let context = canvas.getContext('webgl2', { alpha: false })
+let context = canvas.getContext('webgl2', { alpha: true })
 let renderer = new THREE.WebGLRenderer({ canvas: canvas, context: context, antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
