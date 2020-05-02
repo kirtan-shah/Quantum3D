@@ -16,7 +16,7 @@ export default class Player {
             new Planet(new PlanetLogic(3, new Vector3(-10,  0, 0)))
         ]
         this.planets.forEach(p => game.scene.add(p.group))
-        this.planets[0].logic.fighters.add(1024)
+        this.planets[0].logic.fighters.add(1024, true)
         //this.planets[1].fighters.add(1024)
         //this.planets[2].fighters.add(10000)
 

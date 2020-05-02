@@ -32,6 +32,7 @@ export default class FightersLogic {
             this.points[i*3 + 2] = v.z 
             this.particleData[i] = { angle: angle.clone(), orbitSpeed }
         }
+        //console.log(this.points, this.particleData)
     }
 
     stepOrbit(dt) {
@@ -55,14 +56,12 @@ export default class FightersLogic {
                 this.particleData[this.n] = { angle: newParticleData.angle, orbitSpeed: newParticleData.orbitSpeed }
             }
         }
-        let data
+        this.n += n
         if(n < 0) {
-            data = { 
+            return { 
                 particleData: this.particleData.slice(this.n, this.n - n),
                 points: this.points.slice(this.n*3, (this.n - n)*3)
             }
         }
-        this.n += n
-        return data
     }
 }

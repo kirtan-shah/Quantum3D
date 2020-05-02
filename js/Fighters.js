@@ -5,22 +5,26 @@ export default class Fighters {
         this.logic = logic
 
         this.geometry = new BufferGeometry()
-        this.geometry.setDrawRange(0, this.logic.n)
+        this.geometry.setDrawRange(0, this.n)
         this.geometry.setAttribute('position', new BufferAttribute(this.logic.points, 3).setUsage(DynamicDrawUsage))
 
         this.material = new PointsMaterial( { size: .3, color: 0x00ff00 })
         this.mesh = new Points(this.geometry, this.material)
     }
 
+    get n() { return this.logic.n }
+
     update(dt) {
         this.logic.stepOrbit(dt)
         this.geometry.attributes.position.needsUpdate = true
+
     }
 
     add(n, auto=true, newParticleData) {
         let data = this.logic.add(n, auto, newParticleData)
-        this.geometry.setDrawRange(0, this.logic.n)
+        this.geometry.setDrawRange(0, this.n)
         this.geometry.computeBoundingSphere()
-        this.geometry.attributes.position.needsUpdate = true    
+        this.geometry.attributes.position.needsUpdate = true
+        return data   
     }
 }

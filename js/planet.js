@@ -22,9 +22,9 @@ export default class Planet {
         this.hover = false
         this.selected = false
     }
-    get position() {
-        return this.group.position
-    }
+
+    get radius() { return this.logic.radius }
+    get position() { return this.logic.position }
 
     update(dt) {
         if(this.hover && !this.hovered) {

@@ -101,6 +101,7 @@ export default class Game {
             if(arrowPos.distanceTo(from.position) < road.initPos.distanceTo(from.position)) {
                 road.reset()
             }
+            //console.log(arrowPos, road, road.initPos, arrow)
 
             let n = from.fighters.n
             let ratio = new Vector3().subVectors(arrowPos, road.initPos).length() 
