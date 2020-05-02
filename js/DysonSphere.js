@@ -1,4 +1,4 @@
-import { IcosahedronGeometry, Geometry, MeshBasicMaterial, MeshPhongMaterial, Vector3, Face3, DoubleSide, Mesh, MeshPhysicalMaterial } from './three/build/three.module.js'
+import { IcosahedronGeometry, Geometry, MeshBasicMaterial, MeshLambertMaterial, TextureLoader, MeshPhongMaterial, Vector3, Face3, DoubleSide, Mesh, MeshPhysicalMaterial } from './three/build/three.module.js'
 import { shuffleArray } from './utils.js'
 
 
@@ -43,7 +43,7 @@ class DysonSphere {
         this.count = 0 //geometry.faces.length
         this.geometry = geometry
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
-        //this.shieldMaterial = new MeshBasicMaterial({ color: 0x898989, side: DoubleSide })
+        this.shieldMaterial = new MeshBasicMaterial({ color: 0xffffff, map: new TextureLoader().load('/img/etienne-martin-v6uiP2MD6vs-unsplash.jpg')  })
         this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, this.shieldMaterial, DysonSphere.invisibleMaterial ])
         this.mesh.position.set(pos.x, pos.y, pos.z)
         this.mesh.dyson = this

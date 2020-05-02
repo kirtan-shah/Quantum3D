@@ -9,8 +9,7 @@ export default class Planet {
         this.radius = radius
         this.geometry = new SphereGeometry(radius, 64, 64)
         this.selectedMaterial = new MeshLambertMaterial({ color: 0x111111, emissive: 0x222222 })
-        this.shieldMaterial = new MeshPhysicalMaterial({ color: 0xffffff, emissive: 0x282828, roughness: 1, metalness: 1, reflectivity: 1, clearcoat: 1, flatShading: false })
-        this.material = this.shieldMaterial//new MeshLambertMaterial({ color: 0xE5E5E5 })
+        this.material = new MeshLambertMaterial({ color: 0xE5E5E5 })
         this.mesh = new Mesh(this.geometry, this.material)
         this.group = new Group()
         this.group.add(this.mesh)

@@ -1,4 +1,4 @@
-import { Vector3 } from './three/build/three.module.js'
+import { Vector3, PointLight } from './three/build/three.module.js'
 import Planet from './planet.js'
 import Sun from './sun.js'
 import { DysonSphere, DysonMesh } from './DysonSphere.js'
@@ -29,7 +29,10 @@ export default class Player {
             }
         }
 
+
+        let sunlight = new PointLight(0xffffff, 2)
         this.sun = new Sun()
+        this.sun.mesh.add(sunlight)
         this.sun.position = new Vector3(-40, 0, 0)
         game.scene.add(this.sun.mesh)
 

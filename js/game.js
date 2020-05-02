@@ -30,24 +30,17 @@ export default class Game {
 
         this.player = new Player(this)
 
+        
         let lights = [
-            new DirectionalLight(0xffffff, 1),
-            //new PointLight(0xffffff, 2, 0, 0),
-            //new PointLight(0xffffff, 2, 0, 0)
+            new DirectionalLight(0xffffff, 2)
         ]
-        lights[0].position.set(-1, 1, 1).normalize()
-        //lights[1].position.set(1000, 1000, 0)
-        //lights[2].position.set(-1000, -1000, 0)
+        lights[0].position.set(-1, 1, 0).normalize()
         lights.forEach(l => scene.add(l))
 
-        let ambient = new AmbientLight(0x333333)
+        let ambient = new AmbientLight(0xdddddd)
         scene.add(ambient)  
 
-        let sunlight = new PointLight(0xffffff, 5)
-        sunlight.position.set(-200, 0, 0)
-        scene.add(sunlight)
         this.stars = new Stars(800, 5000)
-        //this.stars.mesh.add(sunlight)
         scene.add(this.stars.mesh)
         
         //bloom effect
