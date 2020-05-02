@@ -3,6 +3,7 @@ import Planet from './planet.js'
 import Sun from './sun.js'
 import { DysonSphere, DysonMesh } from './DysonSphere.js'
 import Road from './Road.js'
+import PlanetLogic from './logic/PlanetLogic.js'
 import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
 
 export default class Player {
@@ -10,12 +11,12 @@ export default class Player {
     constructor(game) {
         this.game = game
         this.planets = [
-            new Planet(3, new Vector3(10, 0, 0)),
-            new Planet(2, new Vector3(10, -10, 0)),
-            new Planet(3, new Vector3(-10,  0, 0))
+            new Planet(new PlanetLogic(3, new Vector3(10, 0, 0))),
+            new Planet(new PlanetLogic(2, new Vector3(10, -10, 0))),
+            new Planet(new PlanetLogic(3, new Vector3(-10,  0, 0)))
         ]
         this.planets.forEach(p => game.scene.add(p.group))
-        this.planets[0].fighters.add(1024)
+        this.planets[0].logic.fighters.add(1024)
         //this.planets[1].fighters.add(1024)
         //this.planets[2].fighters.add(10000)
 

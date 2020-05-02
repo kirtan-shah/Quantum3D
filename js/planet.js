@@ -5,16 +5,17 @@ import { getCoords } from './utils.js'
 
 export default class Planet {
 
-    constructor(radius, pos) {
-        this.radius = radius
-        this.geometry = new SphereGeometry(radius, 64, 64)
+    constructor(logic) {
+        this.logic = logic
+        this.radius = logic.radius
+        this.geometry = new SphereGeometry(this.radius, 64, 64)
         this.selectedMaterial = new MeshLambertMaterial({ color: 0x111111, emissive: 0x222222 })
         this.material = new MeshLambertMaterial({ color: 0xE5E5E5 })
         this.mesh = new Mesh(this.geometry, this.material)
         this.group = new Group()
-        this.group.add(this.mesh)
-        if(pos) this.group.position.set(pos.x, pos.y, pos.z)
-        this.fighters = new Fighters(this, 0)
+        this.group.position.copy(logic.position)
+        this.fighters = new Fighters(logic.fighters)
+        this.group.add(this.mesh, this.fighters.mesh)
 
         this.tl = gsap.timeline()
         this.roads = []
@@ -22,18 +23,9 @@ export default class Planet {
         this.hover = false
         this.selected = false
     }
-
-    set position(pos) {
-        this.group.position.set(pos.x, pos.y, pos.z)
-    }
-    
     get position() {
         return this.group.position
     }
-
-    get x() { return this.group.position.x }
-    get y() { return this.group.position.y }
-    get z() { return this.group.position.z }
 
     update(dt) {
         if(this.hover && !this.hovered) {
