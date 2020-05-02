@@ -7,8 +7,7 @@ export default class Planet {
 
     constructor(logic) {
         this.logic = logic
-        this.radius = logic.radius
-        this.geometry = new SphereGeometry(this.radius, 64, 64)
+        this.geometry = new SphereGeometry(this.logic.radius, 64, 64)
         this.selectedMaterial = new MeshLambertMaterial({ color: 0x111111, emissive: 0x222222 })
         this.material = new MeshLambertMaterial({ color: 0xE5E5E5 })
         this.mesh = new Mesh(this.geometry, this.material)
@@ -42,7 +41,7 @@ export default class Planet {
     }
 
     showLabel() {
-        $('#planet-label').text(`Fighters: ${this.fighters.n}`)
+        $('#planet-label').text(`Fighters: ${this.logic.fighters.n}`)
         $('#planet-label').show()
     }
     static hideLabel() {
