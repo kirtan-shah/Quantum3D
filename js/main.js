@@ -5,12 +5,12 @@ import AssetLoader from './AssetLoader.js'
 import { Spinner } from './lib/spin.js'
 import { spinnerOptions } from './constants.js'
 
-let target = document.getElementById('loading-screen')
+/*let target = document.getElementById('loading-screen')
 new Spinner(spinnerOptions).spin(target)
 setTimeout(() => {
     $('#loading-screen').fadeOut(1000)
     $('#loading-screen *').fadeOut(500)
-}, 2000)
+}, 2000)*/
 
 let canvas = document.createElement('canvas')
 let context = canvas.getContext('webgl2', { alpha: true })
