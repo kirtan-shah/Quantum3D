@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Sat May 02 2020 17:24:54 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* css/main.css
+* index.html
+* js/Player.js
+
+
+Created files:
+* .autogit/logs/log-2-4-2020-16-54-48.txt
+
+
+Deleted files:
+
+
+Renamed files:
