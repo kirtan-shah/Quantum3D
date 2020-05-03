@@ -16,12 +16,25 @@
 	<body>
 		<div id="loading-screen"></div>
 
-		<div id="resources-info">
-			<div id="energy" class="theme"></div>
-			<div id="shield" class="theme"></div>
-			<div id="crystals" class="theme">0 <icon>💎</icon></div>
-			<div id="metal" class="theme">0 <img src="img/metal.png"></div>
-		</div>
+
+		<table id="resources-info">
+			<tr>
+				<td id="energy" class="theme"></td>
+				<td><icon>⚡</icon></td>
+			</tr>
+			<tr>
+				<td id="shield" class="theme"></td>
+				<td><icon>🛡️</icon></td>
+			</tr>
+			<tr>
+				<td id="crystals" class="theme">0</td>
+				<td><icon>💎</icon></td>
+			</tr>
+			<tr>
+				<td id="metal" class="theme">0</td>
+				<td><icon><img src="img/metal.png"></icon></td>		
+			</tr>
+		</table>
 
 		<div id="gui">
 			<button id="power-panel" class="theme">Power Panel</button>

@@ -39,20 +39,20 @@ icon {
 #resources-info {
     display: inline-block;
     position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0.5em;
-    text-align: right;
+    right: .3em;
+    top: .5em;
 }
-#resources-info * {
+#resources-info td {
     border: none;
     font-size: 1.5em;
+    text-align: right;
+    padding: .1em;
 }
 #resources-info icon {
     font-size: 1em;
 }
 #resources-info img {
-    width: 0.8em;
+    width: 1.2em;
 }
 
 button {
