@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Sat May 02 2020 18:52:32 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* img/iron.svg
+
+
+Created files:
+* .autogit/logs/log-2-4-2020-17-54-59.txt
+* js/logic/TransactionsLogic.js
+
+
+Deleted files:
+
+
+Renamed files:
