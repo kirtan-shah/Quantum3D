@@ -5,7 +5,7 @@ import AssetLoader from './AssetLoader.js'
 import { Spinner } from './lib/spin.js'
 import { spinnerOptions } from './constants.js'
 
-/*let target = document.getElementById('loading-screen')
+/* let target = document.getElementById('loading-screen')
 new Spinner(spinnerOptions).spin(target)
 setTimeout(() => {
     $('#loading-screen').fadeOut(1000)

@@ -4,7 +4,7 @@ import { BLOOM_LAYER } from './constants.js'
 export default class Stars {
 
     constructor(r, n) {
-        if(!Stars.sprite) Stars.sprite = new TextureLoader().load('../star.png')
+        if(!Stars.sprite) Stars.sprite = new TextureLoader().load('/img/star.png')
 
         this.points = []
         for(let i = 0; i < n; i++) {
