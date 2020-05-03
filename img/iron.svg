@@ -106,9 +106,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="-385.39437"
-     inkscape:cy="764.96403"
+     inkscape:zoom="0.5"
+     inkscape:cx="-169.79001"
+     inkscape:cy="848.61515"
      inkscape:document-units="mm"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -159,24 +159,32 @@ IAAOCBAQEHCBJEmSJOkHLxvJkYLpH6MAAAAASUVORK5CYII=
        d="m 81.73735,160.3616 79.94194,-33.16741 -25.39514,-23.18855 -80.154686,30.65359 25.607887,25.70237"
        id="path4636"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="19.35"
+       inkscape:export-ydpi="19.35" />
     <path
        style="fill:url(#linearGradient4654);fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 56.129464,134.65923 -6.642603,17.65565 31.778016,32.99315 0.472473,-24.94643 z"
        id="path4646"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="19.35"
+       inkscape:export-ydpi="19.35" />
     <path
        style="fill:url(#linearGradient4664);fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 81.264877,185.30803 167.31595,148.08016 161.67929,127.19419 81.73732,160.3616 Z"
        id="path4656"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="19.35"
+       inkscape:export-ydpi="19.35" />
     <path
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.34650987px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 71.019187,149.31556 4.292569,3.5365 2.970861,2.37407 2.266432,1.32313 -1.556756,-4.13289 3.225489,4.3665 5.447336,-3.9959 -1.677978,2.90345 14.7106,-4.26772 c 0,0 -6.611368,3.41142 -6.825761,3.41142 -0.214391,0 -7.197446,3.64468 -7.197446,3.64468 l -2.511452,1.40886 c 0,0 -0.632666,0.17017 -1.245214,1.85468 l -0.735059,-1.0107 -0.939842,3.31429 -0.47953,-2.78004 -1.500744,0.91883 1.225098,-1.68452 -15.59994,-17.38902 z"
        id="path4698"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccscccccccccc" />
+       sodipodi:nodetypes="cccccccccscccccccccc"
+       inkscape:export-xdpi="19.35"
+       inkscape:export-ydpi="19.35" />
   </g>
 </svg>
