@@ -1,6 +1,8 @@
 import * as THREE from './three/build/three.module.js'
 import Stats from './three/examples/jsm/libs/stats.module.js'
-import Game from './game.js'
+import NetworkController from './NetworkController.js'
+import Game from './Game.js'
+import EmptyGame from './EmptyGame.js'
 import AssetLoader from './AssetLoader.js'
 import { Spinner } from './lib/spin.js'
 import { spinnerOptions } from './constants.js'
@@ -17,8 +19,6 @@ let context = canvas.getContext('webgl2', { alpha: true })
 let renderer = new THREE.WebGLRenderer({ canvas: canvas, context: context, antialias: true })
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
-//renderer.outputEncoding = THREE.GammaEncoding
-//renderer.gammaFactor = 2.2
 renderer.toneMappingExposure = Math.pow( 1.0 , 4.0 ) 
 renderer.toneMapping = THREE.ReinhardToneMapping //used for emulating HDR
 document.body.appendChild(renderer.domElement)
@@ -30,26 +30,29 @@ let scene = new THREE.Scene()
 let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000)
 camera.position.z = 60
 
-let gameState = null
+let game = new EmptyGame()
+let controller
 let loader = new AssetLoader()
 loader.add('../shader/add.vert', 'file')
 loader.add('../shader/add.frag', 'file')
 loader.load(() => {
-    gameState = new Game(renderer, scene, camera, loader)
-    requestAnimationFrame(render)
-    clock.start()
+    controller = new NetworkController('http://localhost:971', () => {
+        game = new Game(controller, renderer, scene, camera, loader)
+        requestAnimationFrame(render)
+        clock.start()
+    })
 })
+let keys = new Array(256).fill(false)
 
 let clock = new THREE.Clock()
-
 function update(dt) {
     stats.update()
-    if(gameState) gameState.update(dt)
+    if(game) game.update(keys, dt)
 }
 function render() {
     update(clock.getDelta())
     requestAnimationFrame(render)
-    gameState.draw()
+    game.draw()
 }
 
 window.addEventListener('resize', () => {
@@ -60,12 +63,56 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix()
 
     renderer.setSize(width, height)
-    if(gameState) gameState.resize()
+    if(game) game.resize()
 })
 
-window.addEventListener('mousemove', (event) => { gameState.mouseMove(event) })
-window.addEventListener('touchstart', (event) => { console.log(event);gameState.mouseMove(event.touches[0]);gameState.click(event.touches[0]) })
-
-function onClick(event) { gameState.click(event) }
-//window.addEventListener('touchend', (event) => { gameState.mouseMove(event.touches[0]);gameState.click(event.touches[0]) })
+window.addEventListener('mousemove', (event) => { game.mouseMove(event) })
+window.addEventListener('touchstart', (event) => { game.mouseMove(event.touches[0]);game.click(event.touches[0]) })
+function onClick(event) { game.click(event) }
 window.addEventListener('click', onClick)
+window.addEventListener('keydown', (event) => keys[event.keyCode] = true)
+window.addEventListener('keyup', (event) => keys[event.keyCode] = false)
+
+$('#nickname, #room-code-input').on('keyup', (event) => {
+    if(event.keyCode === 13) {
+        event.preventDefault()
+        $('#enter').click()
+    }
+});
+
+$(document).ready(() => {
+    $('.page').hide()
+    $('#container').show()
+    history.pushState({page: 'container'}, 'mainmenu')
+})
+window.onpopstate = (event) => {
+    $('.page').fadeOut(200)
+    $('#' + event.state.page).show()
+}
+$('#enter').click(() => {
+    $('.page').hide()
+    if(history.state.creator) {
+        controller.createRoom()
+        $('#start-game').fadeIn(200)
+    }
+    else {
+        $('#start-game').hide()
+        controller.joinRoom($('#room-code-input').val().toUpperCase())
+    }
+    $('#join-room-content').fadeIn(200)
+})
+$('#join-room').click(() => {
+    history.pushState({page: 'join-room-content', creator: false}, 'join-room')
+    $('.page').hide()
+    $('#room-code-input-group').fadeIn(200)
+    $('#enter-nickname-content').fadeIn(200, () => $('#nickname').focus())
+    //$('#join-room-content').show()
+})
+$('#create-room').click(() => {
+    history.pushState({page: 'join-room-content', creator: true}, 'create-room')
+    $('.page').hide()
+    $('#room-code-input-group').hide()
+    $('#enter-nickname-content').fadeIn(200, () => $('#nickname').focus())
+    //$('#create-room-content').show()
+})
+$('#start-game').click(() => controller.startGame())

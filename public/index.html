@@ -12,12 +12,14 @@
 		<link href="css/main.css" rel="stylesheet">
 
 		<script src="js/lib/jquery-3.5.0.min.js"></script>
+		<script src="js/lib/socket.io.js"></script>
 	</head>
 	<body>
 		<!-- <div id="loading-screen"></div> -->
-		<div id="container">
+		<div id="backdrop"></div>
+		<div id="container" class="page">
 			<div id="main-menu">
-				<h1 class="theme">QUANTUM</h1>
+				<span class="theme">QUANTUM</span>
 				<!-- <button>Single Player</button> -->
 				<button id="create-room" class="theme">Create Room</button>
 				<button id="join-room" class="theme">Join Room</button>
@@ -25,6 +27,29 @@
 				<button id="credits" class="theme">Credits</button>
 			</div>
 		</div>
+
+		<div id="enter-nickname-content" class="page">
+			<div>
+				<div class="input-group">
+					<label class="theme noborder">Nickname: </label>
+					<input id="nickname" class="theme" type="text" spellcheck=false>
+				</div>
+				<div class="input-group" id="room-code-input-group">
+					<label class="theme noborder">Room Code: </label>
+					<input id="room-code-input" class="theme" type="text" spellcheck=false>
+				</div>
+				<button id="enter" class="theme">Enter</button>
+			</div>
+		</div>
+		<div id="join-room-content" class="page">
+			<div>
+				<div id="room-code" class="theme noborder">Room Code: </div>
+				<div id="players" class="theme noborder"></div>
+				<button id="start-game" class="theme">Start Game</button>
+			</div>
+		</div>
+
+
 		<table id="resources-info">
 			<tr>
 				<td id="energy" class="theme"></td>

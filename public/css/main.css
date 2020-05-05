@@ -11,7 +11,10 @@
     color: white;
     border: 2px solid #0dd0d6;
     border-radius: 2px;
-    
+}
+.noborder {
+    border: none;
+    outline: none;
 }
 .movable {
     position: absolute;
@@ -83,23 +86,25 @@ button:hover {
     left: 0;
 }
 
-#container {
-    background: rgba(0, 0, 0, .8);
+#backdrop {
+    background: rgba(0, 0, 0, .75);
     display: block;
     width: 100%;
     height: 100%;
-    z-index: 9999;
+    z-index: 1000;
     position: absolute;
     top: 0;
     left: 0;
 }
-#container h1 {
-    color: white;
-    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
-    font-size: 4em;
-    border: none;
+.page {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2000;
 }
-#main-menu {
+.page div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -110,4 +115,50 @@ button:hover {
     display: block;
     margin-top: 0.5em;
     width: 30%;
+}
+#container span {
+    color: white;
+    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+    font-size: 4em;
+    border: none;
+    font-weight: bold;
+}
+
+#join-room-content {
+    top: 20%;
+    transform: none;
+    font-size: 2em;
+}
+#room-code {
+    color: purple;
+    text-shadow: 0 0 5px purple, 0 0 10px purple;
+}
+#join-room-content * {
+    margin-bottom: .5em;
+}
+#join-room-content button {
+    font-size: 1em;
+}
+
+#enter-nickname-content * {
+    margin: .125em;
+    font-size: 1.25em;
+    padding: .25em;
+}
+#enter {
+    border-color: blue;
+    margin-top: 1.5rem;
+    font-size: 2rem;
+}
+#enter:hover {
+    background: rgba(0, 0, 255, .4)
+}
+.input-group {
+    white-space: nowrap;
+}
+.input-group * {
+    display: inline-block;
+}
+#players span:hover {
+    text-decoration: line-through;
 }

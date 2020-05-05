@@ -1,4 +1,4 @@
-import Planet from './planet.js'
+import Planet from './Planet.js'
 import { Vector3, SphereGeometry, MeshLambertMaterial, MeshBasicMaterial, Mesh } from './three/build/three.module.js'
 import { BLOOM_LAYER } from './constants.js'
 
@@ -13,14 +13,7 @@ export default class Sun {
         this.hover = false
     }
 
-    set position(v) {
-        this.mesh.position.set(v.x, v.y, v.z)
-    }
-
     get position() { return this.mesh.position }
-    get x() { return this.mesh.position.x }
-    get y() { return this.mesh.position.y }
-    get z() { return this.mesh.position.z }
 
     update() {
         //let t = Date.now()

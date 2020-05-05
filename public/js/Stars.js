@@ -24,5 +24,13 @@ export default class Stars {
         this.mesh.layers.enable(BLOOM_LAYER)
     }
 
+    update(dt) {
+        /*
+        this.mesh.rotation.x += .001 * dt
+        this.mesh.rotation.y += .001 * dt
+        this.mesh.rotation.z += .001 *dt
+        */ 
+    }
+
 
 }

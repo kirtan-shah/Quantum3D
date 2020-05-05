@@ -1,49 +1,47 @@
-import { Vector3, Raycaster, Vector2, ShaderMaterial, Layers, AmbientLight, PointLight, DoubleSide, MeshBasicMaterial, IcosahedronGeometry, MeshPhongMaterial, DirectionalLight, SphereGeometry, MathUtils } from './three/build/three.module.js'
+import { Vector3, Raycaster, Vector2, ShaderMaterial, Layers, AmbientLight, DoubleSide, MeshBasicMaterial, DirectionalLight, MathUtils } from './three/build/three.module.js'
 import { GUI } from './three/examples/jsm/libs/dat.gui.module.js'
 import { EffectComposer } from './three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from './three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from './three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from './three/examples/jsm/postprocessing/ShaderPass.js'
-import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js'
+import { TrackballControls } from './three/examples/jsm/controls/TrackballControls.js'
 import { DragControls } from './three/examples/jsm/controls/DragControls.js'
 import Stars from './Stars.js'
 import Player from './Player.js'
 import { DysonMesh } from './DysonSphere.js'
-import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
+import { BLOOM_LAYER } from './constants.js'
 import TransactingFighters from './TransactingFighters.js'
 import { getCoords } from './utils.js'
+import Planet from './Planet.js'
 
 export default class Game {
-    constructor(renderer, scene, camera, loader) {
-        this.renderer = renderer
-        this.scene = scene
-        this.camera = camera
-        this.loader = loader
-        
-        this.orbitControls = new OrbitControls(camera, renderer.domElement)
-        this.orbitControls.update()
-        this.draggableObjects = []
-        this.raycaster = new Raycaster()
-        this.mouse = new Vector2()
-
-        this.invisibleMaterial = new MeshBasicMaterial({ color: 'black' })
-
-        this.player = new Player(this)
+    constructor(controller, renderer, scene, camera, loader) {
+        Object.assign(this, {
+            controller, renderer, scene, camera, loader,
+            raycaster: new Raycaster(),
+            mouse: new Vector2(),
+            draggableObjects: [],
+            trackballControls: new TrackballControls(camera, renderer.domElement),
+            invisibleMaterial: new MeshBasicMaterial({ color: 'black' })
+        })
+        this.initObjects()
+    
+        this.trackballControls.panSpeed = .5
+        this.trackballControls.rotateSpeed = 3
+        this.trackballControls.update()
 
         let lights = [
             new DirectionalLight(0xffffff, 2, 0),
             new DirectionalLight(0xffffff, 2, 0),
-            new DirectionalLight(0xffffff, 2, 0)
+            new DirectionalLight(0xffffff, 2, 0),
+            new AmbientLight(0xffffff, 2)
         ]
         lights[0].position.set(0, 1, 0)
         lights[1].position.set(1, 1, 0)
         lights[2].position.set(-1, -1, 0)
         lights.forEach(l => scene.add(l))
 
-        let ambient = new AmbientLight(0xffffff, 2)
-        scene.add(ambient)  
-
-        this.stars = new Stars(800, 5000)
+        this.stars = new Stars(800, 3000)
         scene.add(this.stars.mesh)
         
         //bloom effect
@@ -57,8 +55,8 @@ export default class Game {
         this.bloomLayer.set(BLOOM_LAYER)
         this.materialCache = {}
 
-        document.getElementById('power-panel').onclick = () => this.player.addPowerPanel()
-        document.getElementById('shield-panel').onclick = () => this.player.addShieldPanel()
+        $('#power-panel').click(() => this.me.addPowerPanel())
+        $('#shield-panel').click(() => this.me.addShieldPanel())
 
         /*
         let self = this
@@ -73,12 +71,12 @@ export default class Game {
         this.pendingTransactions = []
         this.dragControls = new DragControls(this.draggableObjects, camera, renderer.domElement)
         this.dragControls.addEventListener('dragstart', () => {
-            this.orbitControls.enabled = false
+            this.trackballControls.enabled = false
             this.suppressClick = 1
             this.planetTransact = { from: null, to: null, count: 0 }
         })
         this.dragControls.addEventListener('dragend', (e) => {
-            this.orbitControls.enabled = true
+            this.trackballControls.enabled = true
             e.object.road.reset()
             $('#move-label').hide()
             let { from, to, count } = this.planetTransact
@@ -101,8 +99,6 @@ export default class Game {
             if(arrowPos.distanceTo(from.position) < road.initPos.distanceTo(from.position)) {
                 road.reset()
             }
-            //console.log(arrowPos, road, road.initPos, arrow)
-
             let n = from.fighters.n
             let ratio = new Vector3().subVectors(arrowPos, road.initPos).length() 
                 / (arrow.direction.length() * .45 - to.radius)
@@ -118,9 +114,25 @@ export default class Game {
         this.played = 0
     }
 
-    update(dt) {
-        this.orbitControls.update()
-        this.player.update(dt)
+    initObjects() {
+        this.players = []
+        for(let i = 0; i < this.controller.gameObject.players.length; i++) {
+            let player = this.controller.gameObject.players[i]
+            let planets = player.planets.map(p => new Planet(p.radius, p.position))
+            if(player.name === this.controller.name) this.me = new Player(this, planets)
+            else this.players.push(new Player(this, planets))
+        }
+    }
+
+    update(keys, dt) {
+        let direction = this.camera.getWorldDirection(new Vector3())
+        if(keys[69]) this.camera.up.applyAxisAngle(direction, -3 * dt)
+        if(keys[81]) this.camera.up.applyAxisAngle(direction, 3 * dt)
+        this.trackballControls.update()
+
+        this.stars.update(dt)
+
+        this.me.update(dt)
         this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
         
         let keepTransactions = []
@@ -192,6 +204,12 @@ export default class Game {
         this.bloomPass = bloomPass
     }
 
+    setRaycaster(event) {
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
+        this.raycaster.setFromCamera(this.mouse, this.camera)
+    }
+
     click(event) {
         if(this.played < 2) {
             let myAudio = new Audio("/sounds/bgsound.mp3")
@@ -207,18 +225,13 @@ export default class Game {
             this.suppressClick = 0
             return
         }
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
-        this.raycaster.setFromCamera(this.mouse, this.camera)
-        this.player.click(this.raycaster)
+        this.setRaycaster(event)
+        this.me.click(this.raycaster)
     }
 
     mouseMove(event) {
-        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1
-        this.raycaster.setFromCamera(this.mouse, this.camera)
-
-        this.player.mouseMove(this.raycaster)
+        this.setRaycaster(event)
+        this.me.mouseMove(this.raycaster)
     }
 
     resize() {

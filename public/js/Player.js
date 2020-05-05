@@ -1,20 +1,22 @@
 import { Vector3, PointLight } from './three/build/three.module.js'
-import Planet from './planet.js'
-import Sun from './sun.js'
+import Planet from './Planet.js'
+import Sun from './Sun.js'
 import { DysonSphere, DysonMesh } from './DysonSphere.js'
 import Road from './Road.js'
-import PlanetLogic from './logic/PlanetLogic.js'
 import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
 
 export default class Player {
 
-    constructor(game) {
+    constructor(game, planets) {
         this.game = game
+
+        /*
         this.planets = [
             new Planet(new PlanetLogic(3, new Vector3(10, 0, 0))),
             new Planet(new PlanetLogic(2, new Vector3(10, -10, 0))),
             new Planet(new PlanetLogic(3, new Vector3(-10,  0, 0)))
-        ]
+        ]*/
+        this.planets = planets
         this.planets.forEach(p => game.scene.add(p.group))
         this.planets[0].fighters.add(1024, true)
         //this.planets[1].fighters.add(1024)
@@ -31,10 +33,7 @@ export default class Player {
         }
 
 
-        let sunlight = new PointLight(0xffffff, 2)
         this.sun = new Sun()
-        this.sun.mesh.add(sunlight)
-        this.sun.position = new Vector3(-40, 0, 0)
         game.scene.add(this.sun.mesh)
 
         this.dyson = new DysonSphere(20, new Vector3(-40, 0, 0))
