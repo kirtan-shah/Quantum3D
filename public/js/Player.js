@@ -7,7 +7,7 @@ import { DEFAULT_LAYER, BLOOM_LAYER } from './constants.js'
 
 export default class Player {
 
-    constructor(game, planets) {
+    constructor(game, playerData) {
         this.game = game
 
         /*
@@ -16,7 +16,7 @@ export default class Player {
             new Planet(new PlanetLogic(2, new Vector3(10, -10, 0))),
             new Planet(new PlanetLogic(3, new Vector3(-10,  0, 0)))
         ]*/
-        this.planets = planets
+        this.playerData = playerData
         this.planets.forEach(p => game.scene.add(p.group))
         this.planets[0].fighters.add(1024, true)
         //this.planets[1].fighters.add(1024)

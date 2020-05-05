@@ -116,11 +116,11 @@ export default class Game {
 
     initObjects() {
         this.players = []
-        for(let i = 0; i < this.controller.gameObject.players.length; i++) {
-            let player = this.controller.gameObject.players[i]
-            let planets = player.planets.map(p => new Planet(p.radius, p.position))
-            if(player.name === this.controller.name) this.me = new Player(this, planets)
-            else this.players.push(new Player(this, planets))
+        for(let playerData of this.controller.gameObject.players) {
+            //let planets = player.planets.map(p => new Planet(p.radius, p.position))
+            let player = new Player(this, playerData)
+            if(playerData.name === this.controller.name) this.me = player
+            else this.players.push(player)
         }
     }
 
@@ -131,8 +131,12 @@ export default class Game {
         this.trackballControls.update()
         
         this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
-
         this.stars.update(dt)
+
+        let players = this.controller.gameObject.players
+        for(let i = 0; i < players.length; i++) {
+            players[i]
+        }
         this.me.update(dt)
 
         let keepTransactions = []
