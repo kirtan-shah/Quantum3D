@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Tue May 05 2020 15:34:02 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/NetworkController.js
+* public/js/game.js
+* src/SunLogic.js
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:
