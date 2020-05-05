@@ -129,12 +129,12 @@ export default class Game {
         if(keys[69]) this.camera.up.applyAxisAngle(direction, -3 * dt)
         if(keys[81]) this.camera.up.applyAxisAngle(direction, 3 * dt)
         this.trackballControls.update()
+        
+        this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
 
         this.stars.update(dt)
-
         this.me.update(dt)
-        this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
-        
+
         let keepTransactions = []
         for(let fighters of this.pendingTransactions) {
             fighters.update(dt)

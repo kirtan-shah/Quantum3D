@@ -8,9 +8,6 @@ export default class SunLogic {
     }
 
     get object() {
-        return {
-            id: this.id,
-            position: this.position
-        }
+        return { id: this.id, position: this.position }
     }
 }

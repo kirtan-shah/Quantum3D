@@ -10,6 +10,10 @@ export default class NetworkController {
         this.creator = false
     }
 
+    /*** IMPLEMENT GAME FUNCTIONS ***/
+    
+
+    /*** NETWORK CODE ***/
     initSocket() {
         const self = this
         const socket = this.socket
