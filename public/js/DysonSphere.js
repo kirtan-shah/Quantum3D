@@ -35,10 +35,7 @@ class DysonSphere {
         geometry.computeBoundingSphere()
         icoGeometry.dispose()
         shuffleArray(geometry.faces)
-        geometry.faces.forEach((face, i) => {
-            face.index = i
-            //face.bloom = Math.random() < .25
-        })
+        geometry.faces.forEach((face, i) => face.index = i)
 
         this.count = 0 //geometry.faces.length
         this.geometry = geometry
