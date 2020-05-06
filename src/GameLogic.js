@@ -1,4 +1,3 @@
-import seedrandom from 'seedrandom'
 import { Vector3 } from 'three'
 import PlayerLogic from './PlayerLogic.js'
 import PlanetLogic from './PlanetLogic.js'
@@ -9,18 +8,18 @@ export default class GameLogic {
         this.room = room
         this.players = []
         this.creationTime = Date.now()
-        this.random = seedrandom(this.creationTime)
+        this.seed = this.creationTime
     }
 
     update() {
-        //update code
-        for(let player of this.players) player.update(100/1000)
-
+        this.seed = Date.now()
+        for(let player of this.players) player.update(16/1000, seed)
         this.io.to(this.room).emit('update', this.object)
     }
     get object() {
         return {
-            players: this.players.map(p => p.object)
+            players: this.players.map(p => p.object),
+            baseSeed: this.seed
         }
     }
 
@@ -41,7 +40,7 @@ export default class GameLogic {
             let planet = new PlanetLogic(6, new Vector3(60*Math.cos(theta), 0, 60*Math.sin(theta)))
             this.players[i].planets[planet.id] = planet
         }
-        this.updateLoop = setInterval(this.update.bind(this), 100)
+        this.updateLoop = setInterval(this.update.bind(this), 16)
     }
 
     close() {

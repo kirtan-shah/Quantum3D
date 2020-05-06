@@ -8,8 +8,8 @@ export default class PlayerLogic {
         this.sun = new SunLogic()
     }
 
-    update(dt) {
-        for(let planet of Object.values(this.planets)) planet.update(dt)
+    update(dt, seed) {
+        for(let planet of Object.values(this.planets)) planet.update(dt, seed)
     }
 
     get object() {

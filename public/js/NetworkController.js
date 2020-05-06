@@ -4,6 +4,7 @@ export default class NetworkController {
     constructor(server, onStart) {
         this.server = server
         this.onStart = onStart
+        this.queue = []
         this.gameObject = {}
         this.room = ''
         this.pollingPlayers = 0
@@ -29,7 +30,7 @@ export default class NetworkController {
             this.gameObject = object
             this.onStart()
         })
-        socket.on('update', (object) => { this.gameObject = object })
+        socket.on('update', (object) => this.queue.push(object))
         socket.on('disconnect', () => location.reload())
 
     }

@@ -131,24 +131,29 @@ export default class Game {
     }
 
     update(keys, dt) {
-        let direction = this.camera.getWorldDirection(new Vector3())
-        if(keys[69]) this.camera.up.applyAxisAngle(direction, -3 * dt)
-        if(keys[81]) this.camera.up.applyAxisAngle(direction, 3 * dt)
-        this.trackballControls.update()
-        
-        this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
+        dt = dt / this.controller.queue.length
+        for(let i = 0; i < this.controller.queue.length; i++) {
+            let gameObject = this.controller.queue.shift()
 
-        for(let playerData of this.controller.gameObject.players) {
-            if(playerData.name === this.controller.name) this.me.update(playerData, dt)
-            else this.players[playerData.name].update(playerData, dt)
-        }
+            let direction = this.camera.getWorldDirection(new Vector3())
+            if(keys[69]) this.camera.up.applyAxisAngle(direction, -3 * dt)
+            if(keys[81]) this.camera.up.applyAxisAngle(direction, 3 * dt)
+            this.trackballControls.update()
+            
+            this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
 
-        let keepTransactions = []
-        for(let fighters of this.pendingTransactions) {
-            fighters.update(dt)
-            if(fighters.n !== 0) keepTransactions.push(fighters)
+            for(let playerData of gameObject.players) {
+                if(playerData.name === this.controller.name) this.me.update(playerData, dt)
+                else this.players[playerData.name].update(playerData, dt)
+            }
+
+            let keepTransactions = []
+            for(let fighters of this.pendingTransactions) {
+                fighters.update(dt)
+                if(fighters.n !== 0) keepTransactions.push(fighters)
+            }
+            this.pendingTransactions = keepTransactions
         }
-        this.pendingTransactions = keepTransactions
     }
 
     draw() {

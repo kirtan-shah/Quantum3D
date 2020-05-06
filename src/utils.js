@@ -1,11 +1,12 @@
-var prng
+import seedrandom from 'seedrandom'
 
+var prng
 function setSeed(seed) {
-    //prng = new Math.seedrandom(seed)
+    prng = seedrandom(seed)
 }
 
 function random() {
-    //if(!prng) prng = new Math.seedrandom()
+    if(!prng) prng = seedrandom()
     return prng.quick()
 }
 

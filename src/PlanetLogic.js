@@ -10,8 +10,8 @@ export default class PlanetLogic {
         this.fighters = new FightersLogic(this, 1024)
     }
 
-    update(dt) {
-        this.fighters.update(dt)
+    update(dt, seed) {
+        this.fighters.update(dt, seed + this.id*100000)
     }
 
     get object() { 

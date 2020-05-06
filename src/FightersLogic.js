@@ -13,13 +13,15 @@ export default class FightersLogic {
         this.generate(0, this.n)
     }
     get object() {
-        return { n: this.n, particleData: this.particleData, points: this.points }
+        return { n: this.n }
     }
 
-    update(dt) {
-        this.stepOrbit(dt)
+    update(dt, seed) {
+        setSeed(seed)
+        //this.stepOrbit(dt)
     }
 
+    //NOT NEEDED?
     stepOrbit(dt) {
         for(let i = 0; i < this.n; i++) {
             let v = new Vector3(this.points[i*3], this.points[i*3 + 1], this.points[i*3 + 2])
