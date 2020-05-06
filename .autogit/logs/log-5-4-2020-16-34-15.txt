@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Tue May 05 2020 16:34:15 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/Player.js
+* public/js/game.js
+
+
+Created files:
+* .autogit/logs/log-5-4-2020-16-4-9.txt
+
+
+Deleted files:
+
+
+Renamed files:
