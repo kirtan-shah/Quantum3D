@@ -122,8 +122,10 @@ export default class Game {
 
     initObjects() {
         this.players = {}
-        for(let playerData of this.controller.gameObject.players) {
+        let gameObject = this.controller.gameObject
+        for(let playerData of gameObject.players) {
             //let planets = player.planets.map(p => new Planet(p.radius, p.position))
+            playerData.seed = gameObject.baseSeed
             let player = new Player(this, playerData)
             if(playerData.name === this.controller.name) this.me = player
             else this.players[playerData.name] = player
@@ -131,9 +133,15 @@ export default class Game {
     }
 
     update(keys, dt) {
-        dt = dt / this.controller.queue.length
+        //dt = dt / this.controller.queue.length
         for(let i = 0; i < this.controller.queue.length; i++) {
+            dt = this.controller.dt
             let gameObject = this.controller.queue.shift()
+            for(let playerData of gameObject.players) {
+                playerData.seed = gameObject.baseSeed
+                if(playerData.name === this.controller.name) this.me.update(playerData, dt)
+                else this.players[playerData.name].update(playerData, dt)
+            }
 
             let direction = this.camera.getWorldDirection(new Vector3())
             if(keys[69]) this.camera.up.applyAxisAngle(direction, -3 * dt)
@@ -141,11 +149,6 @@ export default class Game {
             this.trackballControls.update()
             
             this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
-
-            for(let playerData of gameObject.players) {
-                if(playerData.name === this.controller.name) this.me.update(playerData, dt)
-                else this.players[playerData.name].update(playerData, dt)
-            }
 
             let keepTransactions = []
             for(let fighters of this.pendingTransactions) {

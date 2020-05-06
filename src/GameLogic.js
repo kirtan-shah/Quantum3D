@@ -13,7 +13,7 @@ export default class GameLogic {
 
     update() {
         this.seed = Date.now()
-        for(let player of this.players) player.update(10/1000, seed)
+        for(let player of this.players) player.update(10/1000, this.seed)
         this.io.to(this.room).emit('update', this.object)
     }
     get object() {

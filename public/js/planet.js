@@ -5,17 +5,17 @@ import { getCoords } from './utils.js'
 
 export default class Planet {
 
-    constructor(radius, position, fightersData, id) {
-        this.radius = radius
-        this.id = id
+    constructor(data) {
+        this.radius = data.radius
+        this.id = data.id
         
         this.geometry = new SphereGeometry(this.radius, 64, 64)
         this.selectedMaterial = new MeshLambertMaterial({ color: 0x111111, emissive: 0x222222 })
         this.material = new MeshLambertMaterial({ color: 0xE5E5E5 })
         this.mesh = new Mesh(this.geometry, this.material)
         this.group = new Group()
-        this.group.position.copy(position)
-        this.fighters = new Fighters(this, 1024)
+        this.group.position.copy(data.position)
+        this.fighters = new Fighters(this, 1024, data.seed)
         this.group.add(this.mesh, this.fighters.mesh)
 
         this.tl = gsap.timeline()

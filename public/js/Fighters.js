@@ -4,9 +4,10 @@ import { setSeed, random, randomGaussian } from './utils.js'
 const bufferLength = 4096
 
 export default class Fighters {
-    constructor(planet, n) {
+    constructor(planet, n, seed) {
         this.planet = planet
         this.n = n
+        setSeed(seed)
 
         this.particleData = new Array(bufferLength)
         this.points = new Float32Array(bufferLength * 3).fill(0)
@@ -22,6 +23,7 @@ export default class Fighters {
 
     update(data, dt) {
         setSeed(data.seed)
+        console.log(this.n, data.n)
         if(this.n !== data.n) {
             this.add(data.n - this.n)
         }

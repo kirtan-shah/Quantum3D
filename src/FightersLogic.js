@@ -1,5 +1,5 @@
 import { Vector3, Plane } from 'three'
-import { randomGaussian } from './utils.js'
+import { randomGaussian, setSeed } from './utils.js'
 
 const bufferLength = 4096
 
@@ -17,7 +17,7 @@ export default class FightersLogic {
     }
 
     update(dt, seed) {
-        setSeed(seed)
+        //setSeed(seed)
         //this.stepOrbit(dt)
     }
 
