@@ -111,7 +111,12 @@ export default class Game {
             this.planetTransact = { from, to, count: number }
         })
 
-        this.played = 0
+        let myAudio = new Audio("/sounds/bgsound.mp3")
+        myAudio.addEventListener('ended', function() {
+            this.currentTime = 0
+            this.play()
+        }, false)
+        myAudio.play()
     }
 
     initObjects() {
@@ -214,16 +219,6 @@ export default class Game {
     }
 
     click(event) {
-        if(this.played < 2) {
-            let myAudio = new Audio("/sounds/bgsound.mp3")
-            this.played = true
-            myAudio.addEventListener('ended', function() {
-                this.currentTime = 0
-                this.play()
-            }, false)
-            myAudio.play()
-            this.played++
-        }
         if(this.suppressClick == 1) {
             this.suppressClick = 0
             return
