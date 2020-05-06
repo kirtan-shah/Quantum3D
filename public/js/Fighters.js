@@ -23,7 +23,6 @@ export default class Fighters {
 
     update(data, dt) {
         setSeed(data.seed)
-        console.log(this.n, data.n)
         if(this.n !== data.n) {
             this.add(data.n - this.n)
         }

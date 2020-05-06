@@ -32,7 +32,10 @@ export default class Planet {
     update(data, dt) {
         if(data.radius) this.radius = data.radius
         if(data.position) this.position.copy(data.position)
-        if(data.fighters) this.fighters.update(data.fighters, dt)
+        if(data.fighters) {
+            data.fighters.seed = data.seed
+            this.fighters.update(data.fighters, dt)
+        }
 
         if(this.hover && !this.hovered) {
             this.tl.clear()

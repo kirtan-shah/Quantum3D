@@ -7,7 +7,7 @@ export default class PlanetLogic {
         this.position = position
         this.radius = radius
         this.id = entityId()
-        this.fighters = new FightersLogic(this, 2)
+        this.fighters = new FightersLogic(this, 2048)
     }
 
     update(dt, seed) {
