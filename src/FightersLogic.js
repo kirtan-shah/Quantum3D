@@ -1,4 +1,5 @@
 import { Vector3, Plane } from 'three'
+import { randomGaussian } from './utils.js'
 
 const bufferLength = 4096
 

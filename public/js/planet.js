@@ -5,7 +5,7 @@ import { getCoords } from './utils.js'
 
 export default class Planet {
 
-    constructor(radius, position, id) {
+    constructor(radius, position, fightersData, id) {
         this.radius = radius
         this.id = id
         
@@ -15,7 +15,7 @@ export default class Planet {
         this.mesh = new Mesh(this.geometry, this.material)
         this.group = new Group()
         this.group.position.copy(position)
-        this.fighters = new Fighters(this, 0)
+        this.fighters = new Fighters(this, 1024)
         this.group.add(this.mesh, this.fighters.mesh)
 
         this.tl = gsap.timeline()
@@ -44,7 +44,6 @@ export default class Planet {
             this.tl.to(this.group.scale, .4, { x: 1, y: 1, z: 1, ease: Expo.easeOut })
             this.hovered = false
         }
-        this.fighters.update(dt)
     }
 
     showLabel() {

@@ -138,7 +138,6 @@ export default class Game {
         this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
         this.stars.update(dt)
 
-        console.log(this.controller.gameObject)
         for(let playerData of this.controller.gameObject.players) {
             if(playerData.name === this.controller.name) this.me.update(playerData, dt)
             else this.players[playerData.name].update(playerData, dt)

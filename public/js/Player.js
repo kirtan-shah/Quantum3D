@@ -12,10 +12,10 @@ export default class Player {
         
         this.planets = {}
         for(let key in playerData.planets) {
-            let { radius, position, id } = playerData.planets[key]
-            this.planets[key] = new Planet(radius, position, id)
+            let { radius, position, id, fighters } = playerData.planets[key]
+            this.planets[key] = new Planet(radius, position, fighters, id)
             game.scene.add(this.planets[key].group)
-            this.planets[key].fighters.add(1024, true)
+            //this.planets[key].fighters.add(1024, true)
         }
 
         this.roads = []
@@ -44,7 +44,6 @@ export default class Player {
     }
 
     update(data, dt) {
-        console.log(data)
         for(let planetData of Object.values(data.planets)) this.planets[planetData.id].update(planetData, dt)
         this.dyson.update()
         

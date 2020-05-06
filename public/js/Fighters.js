@@ -23,7 +23,11 @@ export default class Fighters {
     update(data, dt) {
         this.points.set(data.points, 0)
         this.particleData = data.particleData
-        //this.particleData.set(data.particleData, 0)
+        if(this.n !== data.n) {
+            this.n = data.n
+            this.geometry.setDrawRange(0, this.n)
+            this.geometry.computeBoundingSphere()
+        }
         //this.stepOrbit(dt)
         this.geometry.attributes.position.needsUpdate = true
     }

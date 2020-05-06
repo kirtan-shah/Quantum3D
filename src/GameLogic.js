@@ -12,7 +12,7 @@ export default class GameLogic {
 
     update() {
         //update code
-        for(let player of this.players) player.update(10/1000)
+        for(let player of this.players) player.update(100/1000)
 
         this.io.to(this.room).emit('update', this.object)
     }
@@ -39,7 +39,7 @@ export default class GameLogic {
             let planet = new PlanetLogic(6, new Vector3(60*Math.cos(theta), 0, 60*Math.sin(theta)))
             this.players[i].planets[planet.id] = planet
         }
-        this.updateLoop = setInterval(this.update.bind(this), 10)
+        this.updateLoop = setInterval(this.update.bind(this), 100)
     }
 
     close() {
