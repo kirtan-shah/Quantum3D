@@ -1,0 +1,20 @@
+-------------------- Auto-Git Log --------------------
+		Wed May 06 2020 11:41:30 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/Stars.js
+* public/js/game.js
+* public/js/sun.js
+
+
+Created files:
+* .autogit/logs/log-6-4-2020-11-11-23.txt
+* public/img/8k_earth_daymap.jpg
+* public/img/8k_earth_nightmap.jpg
+
+
+Deleted files:
+
+
+Renamed files:
