@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "seedrandom": "^3.0.5",
     "socket.io": "^2.3.0",
     "three": "^0.116.1"
   }

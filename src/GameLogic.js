@@ -1,3 +1,4 @@
+import seedrandom from 'seedrandom'
 import { Vector3 } from 'three'
 import PlayerLogic from './PlayerLogic.js'
 import PlanetLogic from './PlanetLogic.js'
@@ -8,6 +9,7 @@ export default class GameLogic {
         this.room = room
         this.players = []
         this.creationTime = Date.now()
+        this.random = seedrandom(this.creationTime)
     }
 
     update() {
