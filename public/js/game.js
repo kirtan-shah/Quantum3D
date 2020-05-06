@@ -115,12 +115,12 @@ export default class Game {
     }
 
     initObjects() {
-        this.players = []
+        this.players = {}
         for(let playerData of this.controller.gameObject.players) {
             //let planets = player.planets.map(p => new Planet(p.radius, p.position))
             let player = new Player(this, playerData)
             if(playerData.name === this.controller.name) this.me = player
-            else this.players.push(player)
+            else this.players[playerData.name] = player
         }
     }
 
@@ -133,11 +133,10 @@ export default class Game {
         this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
         this.stars.update(dt)
 
-        let players = this.controller.gameObject.players
-        for(let i = 0; i < players.length; i++) {
-            players[i]
+        for(let playerData of this.controller.gameObject.players) {
+            if(playerData.name === this.controller.name) this.me.update(playerData, dt)
+            else this.players[playerData.name].update(playerData, dt)
         }
-        this.me.update(dt)
 
         let keepTransactions = []
         for(let fighters of this.pendingTransactions) {

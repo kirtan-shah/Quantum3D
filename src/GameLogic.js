@@ -35,7 +35,7 @@ export default class GameLogic {
         for(let i = 0; i < this.players.length; i++) {
             let theta = 2*Math.PI * i / this.players.length
             let planet = new PlanetLogic(6, new Vector3(60*Math.cos(theta), 0, 60*Math.sin(theta)))
-            this.players[i].planets.push(planet)
+            this.players[i].planets[planet.id] = planet
         }
         this.updateLoop = setInterval(this.update.bind(this), 10)
     }

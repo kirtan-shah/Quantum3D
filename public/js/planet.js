@@ -5,9 +5,10 @@ import { getCoords } from './utils.js'
 
 export default class Planet {
 
-    constructor(radius, position) {
+    constructor(radius, position, id) {
         this.radius = radius
         this.position = position
+        this.id = id
         
         this.geometry = new SphereGeometry(this.radius, 64, 64)
         this.selectedMaterial = new MeshLambertMaterial({ color: 0x111111, emissive: 0x222222 })

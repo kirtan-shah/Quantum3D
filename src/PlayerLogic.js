@@ -1,4 +1,5 @@
 import { Vector3 } from 'three'
+import SunLogic from './SunLogic.js'
 
 export default class PlayerLogic {
     constructor(name) {

@@ -10,10 +10,15 @@ export default class Player {
     constructor(game, playerData) {
         this.game = game
         
-        this.planets = playerData.planets.map(p => new Planet(p.radius, p.position))
-        this.planets.forEach(p => game.scene.add(p.group))
-        this.planets[0].fighters.add(1024, true)
+        this.planets = {}
+        Object.keys(playerData.planets).forEach((key, i) => {
+            let { radius, position, id } = playerData.planets[key]
+            this.planets[key] = new Planet(radius, position, id)
+            game.scene.add(this.planets[key].group)
+            this.planets[key].fighters.add(1024, true)
+        })
 
+        /*
         this.roads = []
         for(let i = 0; i < this.planets.length; i++) {
             for(let j = 0; j < i; j++) {
@@ -22,10 +27,10 @@ export default class Player {
                 this.game.draggableObjects.push(road.arrowMesh)
                 game.scene.add(road.group)
             }
-        }
-
-
+        }*/
+        
         this.sun = new Sun()
+        this.sun.position.copy(playerData.sun.position)
         game.scene.add(this.sun.mesh)
 
         this.dyson = new DysonSphere(20, new Vector3(-40, 0, 0))
@@ -38,7 +43,8 @@ export default class Player {
         this.updateShieldPanelCost()
     }
 
-    update(dt) {
+    update(data, dt) {
+        data.planets
         for(let p of this.planets) p.update(dt)
         this.dyson.update()
         
