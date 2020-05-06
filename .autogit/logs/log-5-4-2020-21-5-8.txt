@@ -1,0 +1,20 @@
+-------------------- Auto-Git Log --------------------
+		Tue May 05 2020 21:05:08 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/Fighters.js
+* src/FightersLogic.js
+* src/GameLogic.js
+* src/PlanetLogic.js
+* src/PlayerLogic.js
+
+
+Created files:
+* .autogit/logs/log-5-4-2020-20-35-2.txt
+
+
+Deleted files:
+
+
+Renamed files:

@@ -8,7 +8,7 @@ export default class FightersLogic {
         this.n = n
 
         this.particleData = new Array(bufferLength)
-        this.points = new Float32Array(bufferLength * 3).fill(0)
+        this.points = new Array(bufferLength * 3).fill(0)
         this.generate(0, this.n)
     }
     get object() {

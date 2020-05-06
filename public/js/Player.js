@@ -44,6 +44,7 @@ export default class Player {
     }
 
     update(data, dt) {
+        console.log(data)
         for(let planetData of Object.values(data.planets)) this.planets[planetData.id].update(planetData, dt)
         this.dyson.update()
         

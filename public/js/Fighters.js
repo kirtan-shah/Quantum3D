@@ -22,7 +22,8 @@ export default class Fighters {
 
     update(data, dt) {
         this.points.set(data.points, 0)
-        this.particleData.set(data.particleData, 0)
+        this.particleData = data.particleData
+        //this.particleData.set(data.particleData, 0)
         //this.stepOrbit(dt)
         this.geometry.attributes.position.needsUpdate = true
     }
