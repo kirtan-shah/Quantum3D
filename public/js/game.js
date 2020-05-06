@@ -31,9 +31,9 @@ export default class Game {
     
         this.trackballControls.panSpeed = .5
         this.trackballControls.rotateSpeed = 3
-        this.trackballControls.maxDistance = this.stars.r
+        this.trackballControls.maxDistance = this.stars.r - 10
         this.trackballControls.update()
-        
+
         let lights = [
             new DirectionalLight(0xffffff, 2, 0),
             new DirectionalLight(0xffffff, 2, 0),

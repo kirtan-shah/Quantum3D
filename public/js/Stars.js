@@ -4,6 +4,7 @@ import { BLOOM_LAYER } from './constants.js'
 export default class Stars {
 
     constructor(r, n) {
+        this.r = r
         /*
         if(!Stars.sprite) Stars.sprite = new TextureLoader().load('/img/star.png')
 
