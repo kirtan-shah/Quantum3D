@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Tue May 05 2020 19:04:44 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/game.js
+* public/js/planet.js
+
+
+Created files:
+* .autogit/logs/log-5-4-2020-18-4-33.txt
+
+
+Deleted files:
+
+
+Renamed files:
