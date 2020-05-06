@@ -11,7 +11,7 @@ export default class NetworkController {
     }
 
     /*** IMPLEMENT GAME FUNCTIONS ***/
-    
+
 
     /*** NETWORK CODE ***/
     initSocket() {
@@ -29,7 +29,7 @@ export default class NetworkController {
             this.gameObject = object
             this.onStart()
         })
-        socket.on('update', (object) => this.gameObject = object)
+        socket.on('update', (object) => { this.gameObject = object })
         socket.on('disconnect', () => location.reload())
 
     }
