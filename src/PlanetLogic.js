@@ -1,4 +1,4 @@
-//import FightersLogic from "./FightersLogic.js"
+import FightersLogic from "./FightersLogic.js"
 import { entityId } from './ID.js'
 
 export default class PlanetLogic {
@@ -7,11 +7,15 @@ export default class PlanetLogic {
         this.position = position
         this.radius = radius
         this.id = entityId()
-        //this.fighters = new FightersLogic(this, 0)
+        this.fighters = new FightersLogic(this, 0)
+    }
+
+    update(dt) {
+        this.fighters.update(dt)
     }
 
     get object() { 
-        return { id: this.id, radius: this.radius, position: this.position }
+        return { id: this.id, radius: this.radius, position: this.position, fighters: this.fighters.object }
     }
 
 

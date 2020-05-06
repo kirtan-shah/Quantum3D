@@ -8,6 +8,10 @@ export default class PlayerLogic {
         this.sun = new SunLogic()
     }
 
+    update(dt) {
+        for(let planet of Object.values(this.planets)) planet.update(dt)
+    }
+
     get object() {
         let planets = {}
         Object.keys(this.planets).forEach((key, i) => planets[key] = this.planets[key].object)

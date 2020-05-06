@@ -12,6 +12,8 @@ export default class GameLogic {
 
     update() {
         //update code
+        for(let player of players) player.update(10/1000)
+
         this.io.to(this.room).emit('update', this.object)
     }
     get object() {

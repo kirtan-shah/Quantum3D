@@ -20,8 +20,10 @@ export default class Fighters {
         this.mesh = new Points(this.geometry, this.material)
     }
 
-    update(dt) {
-        this.stepOrbit(dt)
+    update(data, dt) {
+        this.points.set(data.points, 0)
+        this.particleData.set(data.particleData, 0)
+        //this.stepOrbit(dt)
         this.geometry.attributes.position.needsUpdate = true
     }
 
@@ -52,10 +54,6 @@ export default class Fighters {
             this.points[i*3 + 2] = v.z 
             this.particleData[i] = { angle: angle.clone(), orbitSpeed }
         }
-    }
-
-    add(n, auto=true, newParticleData) {
-        
     }
 
     add(n, auto=true, newParticleData) {
