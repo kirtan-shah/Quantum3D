@@ -11,15 +11,15 @@ export default class Player {
         this.game = game
         
         this.planets = {}
-        Object.keys(playerData.planets).forEach((key, i) => {
+        for(let key in playerData.planets) {
             let { radius, position, id } = playerData.planets[key]
             this.planets[key] = new Planet(radius, position, id)
             game.scene.add(this.planets[key].group)
             this.planets[key].fighters.add(1024, true)
-        })
+        }
 
-        /*
         this.roads = []
+        /*
         for(let i = 0; i < this.planets.length; i++) {
             for(let j = 0; j < i; j++) {
                 let road = new Road(this.planets[i], this.planets[j])
@@ -44,8 +44,7 @@ export default class Player {
     }
 
     update(data, dt) {
-        data.planets
-        for(let p of this.planets) p.update(dt)
+        for(let planetData of Object.values(data.planets)) this.planets[planetData.id].update(planetData, dt)
         this.dyson.update()
         
         this.energy += this.powerPanels * 1 * dt
@@ -99,7 +98,7 @@ export default class Player {
 
     mouseMove(raycaster) { 
         let oneHovered = false
-        for(let p of this.planets) {
+        for(let p of Object.values(this.planets)) {
             let intersects = raycaster.intersectObject(p.mesh, false)
             p.hover = intersects.length > 0
             if(p.hover || p.selected) {
@@ -123,7 +122,7 @@ export default class Player {
     }
 
     click(raycaster) {
-        for(let p of this.planets) {
+        for(let p of Object.values(this.planets)) {
             let intersects = raycaster.intersectObject(p.mesh, false)
             if(intersects.length > 0) p.select()
             else p.deselect()

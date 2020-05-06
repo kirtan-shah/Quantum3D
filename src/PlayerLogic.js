@@ -4,14 +4,16 @@ import SunLogic from './SunLogic.js'
 export default class PlayerLogic {
     constructor(name) {
         this.name = name
-        this.planets = []
+        this.planets = {}
         this.sun = new SunLogic()
     }
 
     get object() {
+        let planets = {}
+        Object.keys(this.planets).forEach((key, i) => planets[key] = this.planets[key].object)
         return { 
             name: this.name, 
-            planets: this.planets.map(p => p.object),
+            planets,
             sun: this.sun.object
         }
     }

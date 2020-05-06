@@ -26,7 +26,10 @@ export default class Planet {
         this.selected = false
     }
 
-    update(dt) {
+    update(data, dt) {
+        if(data.radius) this.radius = data.radius
+        if(data.position) this.position.copy(data.position)
+        
         if(this.hover && !this.hovered) {
             this.tl.clear()
             this.tl.to(this.group.scale, .4, { x: 1.2, y: 1.2, z: 1.2, ease: Expo.easeOut })
