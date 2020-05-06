@@ -25,11 +25,15 @@ export default class Game {
             invisibleMaterial: new MeshBasicMaterial({ color: 'black' })
         })
         this.initObjects()
+
+        this.stars = new Stars(1500, 3000)
+        scene.add(this.stars.mesh)
     
         this.trackballControls.panSpeed = .5
         this.trackballControls.rotateSpeed = 3
+        this.trackballControls.maxDistance = this.stars.r
         this.trackballControls.update()
-
+        
         let lights = [
             new DirectionalLight(0xffffff, 2, 0),
             new DirectionalLight(0xffffff, 2, 0),
@@ -40,9 +44,6 @@ export default class Game {
         lights[1].position.set(1, 1, 0)
         lights[2].position.set(-1, -1, 0)
         lights.forEach(l => scene.add(l))
-
-        this.stars = new Stars(800, 3000)
-        scene.add(this.stars.mesh)
         
         //bloom effect
         this.params = {
@@ -136,7 +137,6 @@ export default class Game {
         this.trackballControls.update()
         
         this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
-        this.stars.update(dt)
 
         for(let playerData of this.controller.gameObject.players) {
             if(playerData.name === this.controller.name) this.me.update(playerData, dt)

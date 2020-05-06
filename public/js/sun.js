@@ -1,11 +1,11 @@
 import Planet from './Planet.js'
-import { Vector3, SphereGeometry, MeshLambertMaterial, MeshBasicMaterial, Mesh } from './three/build/three.module.js'
+import { Vector3, SphereGeometry, MeshLambertMaterial, MeshBasicMaterial, Mesh, TextureLoader } from './three/build/three.module.js'
 import { BLOOM_LAYER } from './constants.js'
 
 export default class Sun {
     constructor() {
         this.geometry = new SphereGeometry(4, 32, 32)
-        this.material = new MeshLambertMaterial({ color: 0xFF7F00, emissive: 0xFF9c70 })
+        this.material = new MeshBasicMaterial({ map: new TextureLoader().load('/img/8k_sun.jpg'), emissive: 0xFFFFFF })// new MeshLambertMaterial({ color: 0xFF7F00, emissive: 0xFF9c70 })
         this.mesh = new Mesh(this.geometry, this.material)
         this.mesh.layers.enable(BLOOM_LAYER)
         this.tl = gsap.timeline()

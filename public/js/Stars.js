@@ -1,9 +1,10 @@
-import { Points, BufferGeometry, Vector3, PointsMaterial, TextureLoader } from './three/build/three.module.js'
+import { Points, BufferGeometry, Vector3, PointsMaterial, MeshBasicMaterial, Mesh, SphereGeometry, TextureLoader, DoubleSide, BackSide } from './three/build/three.module.js'
 import { BLOOM_LAYER } from './constants.js'
 
 export default class Stars {
 
     constructor(r, n) {
+        /*
         if(!Stars.sprite) Stars.sprite = new TextureLoader().load('/img/star.png')
 
         this.points = []
@@ -16,11 +17,14 @@ export default class Stars {
            let y = rho * Math.sin(theta)
            this.points.push(new Vector3(x, y, z))
         }
-        
         this.geometry = new BufferGeometry().setFromPoints(this.points)
         this.material = new PointsMaterial( { size: 15, sizeAttenuation: true, map: Stars.sprite, alphaTest: .1,
             transparent: true, color: 0x888888 } )
         this.mesh = new Points(this.geometry, this.material)
+        */
+        this.geometry = new SphereGeometry(r, 64, 64)
+        this.material = new MeshBasicMaterial({ map: new TextureLoader().load('/img/8k_stars_milky_way.jpg'), side: DoubleSide, BackSide })
+        this.mesh = new Mesh(this.geometry, this.material)
         this.mesh.layers.enable(BLOOM_LAYER)
     }
 
