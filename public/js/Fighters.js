@@ -1,5 +1,5 @@
 import { PointsMaterial, BufferGeometry, Vector3, Plane,  Points, BufferAttribute, DynamicDrawUsage } from './three/build/three.module.js';
-import { randomGaussian } from './utils.js'
+import { setSeed, random, randomGaussian } from './utils.js'
 
 const bufferLength = 4096
 
@@ -21,14 +21,11 @@ export default class Fighters {
     }
 
     update(data, dt) {
-        this.points.set(data.points, 0)
-        this.particleData = data.particleData
+        setSeed(data.seed)
         if(this.n !== data.n) {
-            this.n = data.n
-            this.geometry.setDrawRange(0, this.n)
-            this.geometry.computeBoundingSphere()
+            this.add(data.n - this.n)
         }
-        //this.stepOrbit(dt)
+        this.stepOrbit(dt)
         this.geometry.attributes.position.needsUpdate = true
     }
 
@@ -39,21 +36,21 @@ export default class Fighters {
             this.points[i*3 + 0] = v.x
             this.points[i*3 + 1] = v.y
             this.points[i*3 + 2] = v.z
-            this.particleData[i].angle.add(new Vector3(randomGaussian(), randomGaussian(), randomGaussian()).setLength(.1)).normalize()
+            this.particleData[i].angle.add(new Vector3(randomGaussian(true), randomGaussian(true), randomGaussian(true)).setLength(.1)).normalize()
         }
     }
 
     generate(start, n) {
         for(let i = start; i < n; i++) {
             let v = new Vector3()
-            let angle = new Vector3(randomGaussian(), randomGaussian(), randomGaussian()).normalize()
-            let initialPos = new Vector3(Math.random(), Math.random(), Math.random())
+            let angle = new Vector3(randomGaussian(true), randomGaussian(true), randomGaussian(true)).normalize()
+            let initialPos = new Vector3(random(), random(), random())
             let orbitPlane = new Plane(angle.clone())
-            let orbitSpeed = (Math.random() * 0.6) + 0.6
-            if(Math.random() < .5) orbitSpeed *= -1
+            let orbitSpeed = (random() * 0.6) + 0.6
+            if(random() < .5) orbitSpeed *= -1
             orbitPlane.projectPoint(initialPos, v)
-            v.setLength(this.planet.radius * (Math.random() / 10 + 1.2))
-            v.applyAxisAngle(angle, Math.random() * 2*Math.PI)
+            v.setLength(this.planet.radius * (random() / 10 + 1.2))
+            v.applyAxisAngle(angle, random() * 2*Math.PI)
             this.points[i*3 + 0] = v.x
             this.points[i*3 + 1] = v.y
             this.points[i*3 + 2] = v.z 
