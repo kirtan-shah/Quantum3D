@@ -15,7 +15,7 @@ export default class Planet {
         this.mesh = new Mesh(this.geometry, this.material)
         this.group = new Group()
         this.group.position.copy(data.position)
-        this.fighters = new Fighters(this, 1024, data.seed)
+        this.fighters = new Fighters(this, data.fighters.n, data.seed)
         this.group.add(this.mesh, this.fighters.mesh)
 
         this.tl = gsap.timeline()

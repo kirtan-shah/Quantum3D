@@ -3,8 +3,8 @@ import { Vector3, SphereGeometry, MeshLambertMaterial, MeshBasicMaterial, Mesh, 
 import { BLOOM_LAYER } from './constants.js'
 
 export default class Sun {
-    constructor() {
-        this.geometry = new SphereGeometry(4, 32, 32)
+    constructor(r) {
+        this.geometry = new SphereGeometry(r, 32, 32)
         this.material = new MeshBasicMaterial({ map: new TextureLoader().load('/img/2k_sun.jpg') })// new MeshLambertMaterial({ color: 0xFF7F00, emissive: 0xFF9c70 })
         this.mesh = new Mesh(this.geometry, this.material)
         this.mesh.layers.enable(BLOOM_LAYER)

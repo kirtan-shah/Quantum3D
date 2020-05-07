@@ -43,7 +43,7 @@ class DysonSphere {
         this.mesh.dyson = this
 
         this.group = new Group()
-        this.sun = new Sun()
+        this.sun = new Sun(r / 1.5)
         this.group.add(this.mesh, this.sun.mesh)
         this.group.position.copy(pos)
 

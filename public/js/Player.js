@@ -30,7 +30,7 @@ export default class Player {
             }
         }*/
     
-        this.dyson = new DysonSphere(20, playerData.sun.position)
+        this.dyson = new DysonSphere(50, playerData.sun.position)
         game.scene.add(this.dyson.group)
     
         this.dyson.update(0)
