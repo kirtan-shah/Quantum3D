@@ -1,0 +1,21 @@
+-------------------- Auto-Git Log --------------------
+		Thu May 07 2020 00:14:03 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/DysonSphere.js
+* public/js/Player.js
+* public/js/planet.js
+* public/js/sun.js
+* src/GameLogic.js
+* src/PlanetLogic.js
+
+
+Created files:
+* .autogit/logs/log-6-4-2020-23-13-52.txt
+
+
+Deleted files:
+
+
+Renamed files:
