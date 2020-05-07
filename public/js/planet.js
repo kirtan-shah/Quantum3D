@@ -36,6 +36,8 @@ export default class Planet {
             data.fighters.seed = data.seed
             this.fighters.update(data.fighters, dt)
         }
+        this.mesh.rotation.x += .03 * dt
+        this.mesh.rotation.y -= .14 * dt
 
         if(this.hover && !this.hovered) {
             this.tl.clear()
