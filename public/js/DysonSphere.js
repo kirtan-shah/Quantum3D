@@ -1,9 +1,8 @@
-import { IcosahedronGeometry, Geometry, MeshBasicMaterial, MeshLambertMaterial, TextureLoader, MeshPhongMaterial, Vector3, Face3, DoubleSide, Mesh, MeshPhysicalMaterial } from './three/build/three.module.js'
+import { IcosahedronGeometry, Geometry, MeshBasicMaterial, MeshLambertMaterial, TextureLoader, MeshPhongMaterial, Vector3, Face3, DoubleSide, Mesh, MeshPhysicalMaterial, Group } from './three/build/three.module.js'
+import Sun from './Sun.js'
 import { shuffleArray } from './utils.js'
 
-
 class DysonSphere {
-
     constructor(r, pos) {
         if(!DysonSphere.transparentMaterial) 
             DysonSphere.transparentMaterial = new MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false})
@@ -41,14 +40,25 @@ class DysonSphere {
         this.geometry = geometry
         this.material = new MeshPhongMaterial({ color: 0xcebc21, emissive: 0x2b0b0b, specular: 0x111111, shininess: 30, flatShading: true, side: DoubleSide })
         this.mesh = new DysonMesh(this.geometry, [ DysonSphere.transparentMaterial, this.material, DysonSphere.invisibleMaterial ])
-        this.mesh.position.set(pos.x, pos.y, pos.z)
         this.mesh.dyson = this
+
+        this.group = new Group()
+        this.sun = new Sun()
+        this.group.add(this.mesh, this.sun.mesh)
+        this.group.position.copy(pos)
 
         this.click = -1
         this.clicked = -1
     }
 
-    update() {
+    get position() { 
+        return this.group.position
+    }
+
+    update(dt) {
+        this.sun.update(dt)
+        this.group.rotation.x += .05 * dt
+        this.group.rotation.y += .15 * dt
         for(let i = 0; i < this.geometry.faces.length; i++) {
             this.geometry.faces[i].materialIndex =  this.geometry.faces[i].index < this.count ? 1 : 0
         }

@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Wed May 06 2020 17:42:43 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/css/main.css
+* public/index.html
+* public/js/main.js
+
+
+Created files:
+* .autogit/logs/log-6-4-2020-17-12-37.txt
+
+
+Deleted files:
+
+
+Renamed files:

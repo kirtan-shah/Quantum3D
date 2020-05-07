@@ -29,14 +29,11 @@ export default class Player {
                 game.scene.add(road.group)
             }
         }*/
-        
-        this.sun = new Sun()
-        this.sun.position.copy(playerData.sun.position)
-        game.scene.add(this.sun.mesh)
-
-        this.dyson = new DysonSphere(20, new Vector3(-40, 0, 0))
-        game.scene.add(this.dyson.mesh)
-        this.dyson.update()
+    
+        this.dyson = new DysonSphere(20, playerData.sun.position)
+        game.scene.add(this.dyson.group)
+    
+        this.dyson.update(0)
         this.powerPanels = 0
         this.shieldPanels = 0
         this.energy = 10000
@@ -49,7 +46,7 @@ export default class Player {
             planetData.seed = data.seed
             this.planets[planetData.id].update(planetData, dt)
         }
-        this.dyson.update()
+        this.dyson.update(dt)
         
         this.energy += this.powerPanels * 1 * dt
         this.shield = this.powerPanels * 10 + this.shieldPanels * 100

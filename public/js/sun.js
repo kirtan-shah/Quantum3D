@@ -15,9 +15,9 @@ export default class Sun {
 
     get position() { return this.mesh.position }
 
-    update() {
-        //let t = Date.now()
-        //this.mesh.position.set(10*Math.cos(2*Math.PI * t / 60000.0), 10*Math.sin(2*Math.PI * t / 60000.0), 10)
+    update(dt) {
+        // this.mesh.rotation.x += .05 * dt
+        // this.mesh.rotation.y += .15 * dt
     }
 
 }

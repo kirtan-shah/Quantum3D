@@ -9,6 +9,7 @@ export default class AssetLoader {
         this.done = 0
         this.lock = false
         Cache.enabled = true
+        this.imgList = []
     }
 
     getData(name) {
@@ -31,6 +32,18 @@ export default class AssetLoader {
                     this.done++
                     if(this.onComplete && this.lock && this.done == this.count) this.onComplete()
                 })
+                break
+            case 'image':
+                let self = this
+                let img = new Image()
+                img.onload = function() {
+                    let index = self.imgList.indexOf(img)
+                    if(index !== -1) self.imgList.splice(index, 1)
+                    self.done++
+                    if(self.onComplete && self.lock && self.done == self.count) self.onComplete()
+                }
+                this.imgList.push(img)
+                img.src = name
                 break
             default:
                 console.error('Unknown data type:', type)
