@@ -27,7 +27,7 @@ let stats = new Stats()
 document.body.appendChild(stats.dom)
 
 let scene = new THREE.Scene()
-let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000)
+let camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100000)
 camera.position.z = 60
 
 let game = new EmptyGame()

@@ -26,12 +26,12 @@ export default class Game {
         })
         this.initObjects()
 
-        this.stars = new Stars(1500, 3000)
+        this.stars = new Stars(6000, 3000)
         scene.add(this.stars.mesh)
     
         this.trackballControls.panSpeed = .5
         this.trackballControls.rotateSpeed = 3
-        this.trackballControls.maxDistance = this.stars.r - 10
+        this.trackballControls.maxDistance = 2000
         this.trackballControls.update()
 
         let lights = [
@@ -150,11 +150,13 @@ export default class Game {
                 else this.players[playerData.name].update(playerData, dt)
             }
 
+            this.trackballControls.update()
             let direction = this.camera.getWorldDirection(new Vector3())
             if(keys[69]) this.camera.up.applyAxisAngle(direction, -3 * dt)
             if(keys[81]) this.camera.up.applyAxisAngle(direction, 3 * dt)
-            this.trackballControls.update()
-            
+            //if(this.camera.position.length() > 2000) this.camera.position.setLength(2000)
+            //this.camera.update()
+
             this.bloomPass.strength = 1.5 + 0.1*Math.sin(2*Math.PI * Date.now() / 4000)
 
             let keepTransactions = []
