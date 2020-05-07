@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Thu May 07 2020 13:30:31 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/Fighters.js
+* src/GameLogic.js
+
+
+Created files:
+* .autogit/logs/log-7-4-2020-13-0-25.txt
+
+
+Deleted files:
+
+
+Renamed files:
