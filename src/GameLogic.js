@@ -7,6 +7,7 @@ export default class GameLogic {
         this.io = io
         this.room = room
         this.players = []
+        this.planets = {}
         this.creationTime = Date.now()
         this.seed = this.creationTime
     }

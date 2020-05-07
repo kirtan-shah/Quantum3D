@@ -17,7 +17,7 @@ export default class Fighters {
         this.geometry.setDrawRange(0, this.n)
         this.geometry.setAttribute('position', new BufferAttribute(this.points, 3).setUsage(DynamicDrawUsage))
 
-        this.material = new PointsMaterial( { size: .3, color: 0x00ff00 })
+        this.material = new PointsMaterial( { size: .3, color: 0xff0000 })
         this.mesh = new Points(this.geometry, this.material)
     }
 
