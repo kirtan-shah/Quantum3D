@@ -119,10 +119,15 @@ button:hover {
 }
 #container span {
     color: white;
-    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
-    font-size: 4em;
+    font-size: 4rem;
     border: none;
     font-weight: bold;
+}
+#container span:first-child {
+    text-shadow: 0 0 5px #0dd0d6, 0 0 10px #0dd0d6, 0 0 15px #0dd0d6;
+}
+#container span:last-child {
+    text-shadow: 0 0 5px #0dd0d6, 0 0 10px #0dd0d6, 0 0 15px #0dd0d6;
 }
 
 #join-room-content {
