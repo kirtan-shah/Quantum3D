@@ -37,6 +37,7 @@ loader.add('../shader/add.vert', 'file')
 loader.add('../shader/add.frag', 'file')
 loader.add('/img/8k_stars_milky_way.jpg', 'image')
 loader.add('/img/2k_sun.jpg', 'image')
+loader.add('/img/2k_mars.jpg', 'image')
 loader.load(() => {
     stopSpinner()
     controller = new NetworkController('http://localhost:971', () => {
