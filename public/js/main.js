@@ -7,12 +7,12 @@ import AssetLoader from './AssetLoader.js'
 import { Spinner } from './lib/spin.js'
 import { spinnerOptions } from './constants.js'
 
-/* let target = document.getElementById('loading-screen')
+let target = document.getElementById('loading-screen')
 new Spinner(spinnerOptions).spin(target)
-setTimeout(() => {
+function stopSpinner() {
     $('#loading-screen').fadeOut(1000)
     $('#loading-screen *').fadeOut(500)
-}, 2000)*/
+}
 
 let canvas = document.createElement('canvas')
 let context = canvas.getContext('webgl2', { alpha: true })
@@ -35,7 +35,10 @@ let controller
 let loader = new AssetLoader()
 loader.add('../shader/add.vert', 'file')
 loader.add('../shader/add.frag', 'file')
+loader.add('/img/8k_stars_milky_way.jpg', 'image')
+loader.add('/img/2k_sun.jpg', 'image')
 loader.load(() => {
+    stopSpinner()
     controller = new NetworkController('http://localhost:971', () => {
         game = new Game(controller, renderer, scene, camera, loader)
         requestAnimationFrame(render)
