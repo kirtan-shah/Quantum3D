@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Wed May 06 2020 19:13:02 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/main.js
+* public/js/planet.js
+
+
+Created files:
+* .autogit/logs/log-6-4-2020-18-42-56.txt
+* public/img/2k_mars.jpg
+* public/img/2k_venus_atmosphere.jpg
+
+
+Deleted files:
+
+
+Renamed files:
