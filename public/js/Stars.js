@@ -24,7 +24,7 @@ export default class Stars {
         this.mesh = new Points(this.geometry, this.material)
         */
         this.geometry = new SphereGeometry(r, 64, 64)
-        this.material = new MeshBasicMaterial({ map: new TextureLoader().load('/img/8k_stars_milky_way.jpg'), side: DoubleSide, BackSide })
+        this.material = new MeshBasicMaterial({ map: new TextureLoader().load('/img/8k_stars_milky_way.jpg'), side: BackSide })
         this.mesh = new Mesh(this.geometry, this.material)
         this.mesh.layers.enable(BLOOM_LAYER)
     }
