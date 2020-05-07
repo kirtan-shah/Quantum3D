@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Wed May 06 2020 16:42:31 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/Fighters.js
+* public/js/planet.js
+* src/PlanetLogic.js
+
+
+Created files:
+* .autogit/logs/log-6-4-2020-16-12-24.txt
+
+
+Deleted files:
+
+
+Renamed files:
