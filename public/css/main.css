@@ -124,10 +124,10 @@ button:hover {
     font-weight: bold;
 }
 #container span:first-child {
-    text-shadow: 0 0 5px #0dd0d6, 0 0 10px #0dd0d6, 0 0 15px #0dd0d6;
+    text-shadow: 0 0 5px #992fd6, 0 0 10px #992fd6, 0 0 15px #ea03ff;
 }
 #container span:last-child {
-    text-shadow: 0 0 5px #0dd0d6, 0 0 10px #0dd0d6, 0 0 15px #0dd0d6;
+    text-shadow: 0 0 5px #f76300, 0 0 10px #e26600, 0 0 15px #ff4800;
 }
 
 #join-room-content {
