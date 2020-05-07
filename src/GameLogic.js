@@ -41,20 +41,19 @@ export default class GameLogic {
     start() {
         for(let i = 0; i < this.players.length; i++) {
             let theta = 2*Math.PI * i / this.players.length
-            let planet = new PlanetLogic(11, new Vector3(650*Math.cos(theta), 0, 650*Math.sin(theta)))
+            let planet = new PlanetLogic(11, new Vector3(700*Math.cos(theta), 0, 700*Math.sin(theta)))
+            planet.fighters.n = 1024
             this.players[i].planets[planet.id] = planet
+            this.players[i].sun.position.set(800*Math.cos(theta), 0, 800*Math.sin(theta))
         }
         let n = 6
-        let toggle = false
         for(let r of [150, 300, 600]) {
+            let offset = 2*Math.PI / n / 2
             for(let theta = 0; theta < 2*Math.PI; theta += 2*Math.PI / n) {
-                let v = new Vector3()
-                if(toggle) v.set(r*Math.cos(theta), r*Math.sin(theta), 0)
-                else v.set(r*Math.cos(theta), 0, r*Math.sin(theta))
+                let v = new Vector3(r*Math.cos(theta + offset), 0, r*Math.sin(theta + offset))
                 let planet = new PlanetLogic(8, v)
                 this.planets[planet.id] = planet
             }
-            //toggle = !toggle
             n*=2
         }
         this.updateLoop = setInterval(this.update.bind(this), 10)
