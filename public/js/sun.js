@@ -16,8 +16,8 @@ export default class Sun {
     get position() { return this.mesh.position }
 
     update(dt) {
-        // this.mesh.rotation.x += .05 * dt
-        // this.mesh.rotation.y += .15 * dt
+        this.mesh.rotation.x += .05 * dt
+        this.mesh.rotation.y += .15 * dt
     }
 
 }

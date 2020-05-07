@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Wed May 06 2020 18:12:51 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* public/js/AssetLoader.js
+* public/js/DysonSphere.js
+* public/js/Player.js
+* public/js/sun.js
+
+
+Created files:
+* .autogit/logs/log-6-4-2020-17-42-43.txt
+
+
+Deleted files:
+
+
+Renamed files:

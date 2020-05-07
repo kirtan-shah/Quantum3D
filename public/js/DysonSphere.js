@@ -57,8 +57,9 @@ class DysonSphere {
 
     update(dt) {
         this.sun.update(dt)
-        this.group.rotation.x += .05 * dt
-        this.group.rotation.y += .15 * dt
+        this.mesh.rotation.x += .02 * dt
+        this.mesh.rotation.y += .02 * dt
+        this.mesh.rotation.y += .02 * dt
         for(let i = 0; i < this.geometry.faces.length; i++) {
             this.geometry.faces[i].materialIndex =  this.geometry.faces[i].index < this.count ? 1 : 0
         }
