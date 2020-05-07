@@ -41,18 +41,18 @@ export default class GameLogic {
     start() {
         for(let i = 0; i < this.players.length; i++) {
             let theta = 2*Math.PI * i / this.players.length
-            let planet = new PlanetLogic(10, new Vector3(80*Math.cos(theta), 0, 80*Math.sin(theta)))
+            let planet = new PlanetLogic(11, new Vector3(650*Math.cos(theta), 0, 650*Math.sin(theta)))
             this.players[i].planets[planet.id] = planet
         }
-        let n = 5
+        let n = 6
         let toggle = false
         for(let r of [150, 300, 600]) {
             for(let theta = 0; theta < 2*Math.PI; theta += 2*Math.PI / n) {
                 let v = new Vector3()
                 if(toggle) v.set(r*Math.cos(theta), r*Math.sin(theta), 0)
                 else v.set(r*Math.cos(theta), 0, r*Math.sin(theta))
-                let planet = new PlanetLogic(10, v)
-                //this.planets[planet.id] = planet
+                let planet = new PlanetLogic(8, v)
+                this.planets[planet.id] = planet
             }
             //toggle = !toggle
             n*=2

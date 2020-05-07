@@ -1,7 +1,7 @@
 import { PointsMaterial, BufferGeometry, Vector3, Plane,  Points, BufferAttribute, DynamicDrawUsage } from './three/build/three.module.js';
 import { setSeed, random, randomGaussian } from './utils.js'
 
-const bufferLength = 4096
+const bufferLength = 65536
 
 export default class Fighters {
     constructor(planet, n, seed) {
