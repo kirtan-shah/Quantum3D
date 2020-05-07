@@ -121,14 +121,21 @@ export default class Game {
     }
 
     initObjects() {
-        this.players = {}
         let gameObject = this.controller.gameObject
+        this.players = {}
         for(let playerData of gameObject.players) {
             //let planets = player.planets.map(p => new Planet(p.radius, p.position))
             playerData.seed = gameObject.baseSeed
             let player = new Player(this, playerData)
             if(playerData.name === this.controller.name) this.me = player
             else this.players[playerData.name] = player
+        }
+        this.planets = {}
+        for(let planetData of Object.values(gameObject.planets)) {
+            planetData.seed = gameObject.baseSeed + planetData.id * 100000
+            let planet = new Planet(planetData)
+            this.planets[planet.id] = planet
+            this.scene.add(this.planets[planet.id].group)
         }
     }
 
