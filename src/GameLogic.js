@@ -46,7 +46,7 @@ export default class GameLogic {
             this.players[i].planets[planet.id] = planet
             this.players[i].sun.position.set(800*Math.cos(theta), 0, 800*Math.sin(theta))
         }
-        let n = 6
+        let n = 
         for(let r of [150, 300, 600]) {
             let offset = 2*Math.PI / n / 2
             for(let theta = 0; theta < 2*Math.PI; theta += 2*Math.PI / n) {
