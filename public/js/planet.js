@@ -7,6 +7,7 @@ export default class Planet {
 
     constructor(data) {
         this.radius = data.radius
+        this.orbitSpeed = data.orbitSpeed
         this.id = data.id
         setSeed(data.seed + this.id*1000)
         
@@ -40,8 +41,8 @@ export default class Planet {
             data.fighters.seed = data.seed
             this.fighters.update(data.fighters, dt)
         }
-        this.mesh.rotation.x += .04 * dt
-        this.mesh.rotation.y -= .18 * dt
+        //this.mesh.rotation.x += .04 * dt
+        this.mesh.rotation.y += 1 * dt
 
         if(this.hover && !this.hovered) {
             this.tl.clear()

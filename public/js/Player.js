@@ -46,7 +46,7 @@ export default class Player {
             planetData.seed = data.seed
             let planet = this.planets[planetData.id]
             planet.update(planetData, dt)
-            planet.group.position.applyAxisAngle(new Vector3(0, 1, 0), .002)
+            planet.group.position.applyAxisAngle(new Vector3(0, 1, 0), planet.orbitSpeed)
         }
         this.dyson.update(dt)   
         

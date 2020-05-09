@@ -1,3 +1,4 @@
+import { Vector3 } from 'three'
 import FightersLogic from "./FightersLogic.js"
 import { entityId } from './ID.js'
 
@@ -9,6 +10,7 @@ export default class PlanetLogic {
         this.fighters = new FightersLogic(this, 0)
         this.position = new Vector3()
         this.orbitRadius = 0
+        this.orbitSpeed = 0
         this.ring = -1
     }
 
@@ -17,7 +19,7 @@ export default class PlanetLogic {
     }
 
     get object() { 
-        return { id: this.id, radius: this.radius, fighters: this.fighters.object, orbitRadius: this.orbitRadius }
+        return { id: this.id, radius: this.radius, fighters: this.fighters.object, orbitRadius: this.orbitRadius, orbitSpeed: this.orbitSpeed }
     }
 
 
