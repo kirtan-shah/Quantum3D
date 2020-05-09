@@ -8,6 +8,7 @@ export default class PlanetLogic {
         this.radius = radius
         this.id = entityId()
         this.fighters = new FightersLogic(this, 0)
+        this.ring = -1
     }
 
     update(dt, seed) {

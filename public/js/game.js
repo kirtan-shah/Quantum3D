@@ -31,18 +31,19 @@ export default class Game {
     
         this.trackballControls.panSpeed = .5
         this.trackballControls.rotateSpeed = 3
+        this.trackballControls.minDistance = 5
         this.trackballControls.maxDistance = 2000
         this.trackballControls.update()
 
         let lights = [
             new DirectionalLight(0xffffff, 2, 0),
-            new DirectionalLight(0xffffff, 2, 0),
-            new DirectionalLight(0xffffff, 2, 0),
-            new AmbientLight(0xffffff, 2)
+            //new DirectionalLight(0xffffff, 2, 0),
+            //new DirectionalLight(0xffffff, 2, 0),
+            new AmbientLight(0xffffff, 1)
         ]
         lights[0].position.set(0, 1, 0)
-        lights[1].position.set(1, 1, 0)
-        lights[2].position.set(-1, -1, 0)
+        //lights[1].position.set(1, 1, 0)
+        //lights[2].position.set(-1, -1, 0)
         lights.forEach(l => scene.add(l))
         
         //bloom effect

@@ -46,17 +46,16 @@ export default class GameLogic {
             this.players[i].planets[planet.id] = planet
             this.players[i].sun.position.set(800*Math.cos(theta), 0, 800*Math.sin(theta))
         }
-        let n = 5
-        for(let r of [150, 300, 600]) {
-            let offset = 2*Math.PI / n / 2
-            for(let theta = 0; theta < 2*Math.PI; theta += 2*Math.PI / n) {
-                let v = new Vector3(r*Math.cos(theta + offset), 0, r*Math.sin(theta + offset))
-                let planet = new PlanetLogic(8, v)
-                this.planets[planet.id] = planet
-            }
-            n*=2
-        }
+        this.createRing(35, 4)
+        this.createRing(150, 10)
         this.updateLoop = setInterval(this.update.bind(this), 10)
+    }
+
+    createRing(r, n, thetaStart=0, thetaLength=2*Math.PI) {
+        for(let theta = thetaStart; theta < thetaStart + thetaLength; theta += 2*Math.PI / n) {
+            let planet = new PlanetLogic(8, new Vector3(r*Math.cos(theta), 0, r*Math.sin(theta)))
+            this.planets[planet.id] = planet
+        }
     }
 
     close() {
