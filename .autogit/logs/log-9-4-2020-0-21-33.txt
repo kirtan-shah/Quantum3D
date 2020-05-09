@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Sat May 09 2020 00:21:33 GMT-0700 (Pacific Daylight Time)
+------------------------------------------------------
+
+Modified files:
+* src/GameLogic.js
+
+
+Created files:
+* .autogit/logs/log-8-4-2020-23-51-28.txt
+
+
+Deleted files:
+
+
+Renamed files:
