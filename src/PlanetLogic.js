@@ -7,6 +7,7 @@ export default class PlanetLogic {
         this.radius = radius
         this.id = entityId()
         this.fighters = new FightersLogic(this, 0)
+        this.position = new Vector3()
         this.orbitRadius = 0
         this.ring = -1
     }

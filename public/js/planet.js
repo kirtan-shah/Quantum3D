@@ -17,6 +17,7 @@ export default class Planet {
 
         this.group = new Group()
         let theta = random()*2*Math.PI
+        //if(data.position) this.group.position.c
         this.group.position.set(data.orbitRadius*Math.cos(theta), 0, data.orbitRadius*Math.sin(theta))
         this.fighters = new Fighters(this, data.fighters.n, data.seed)
         this.group.add(this.mesh, this.fighters.mesh)
