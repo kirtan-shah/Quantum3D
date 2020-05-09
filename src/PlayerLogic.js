@@ -5,7 +5,7 @@ export default class PlayerLogic {
     constructor(name) {
         this.name = name
         this.planets = {}
-        this.sun = new SunLogic()
+        this.position = new Vector3()
     }
 
     update(dt, seed) {
@@ -18,7 +18,7 @@ export default class PlayerLogic {
         return { 
             name: this.name, 
             planets,
-            sun: this.sun.object
+            position: this.position
         }
     }
 }

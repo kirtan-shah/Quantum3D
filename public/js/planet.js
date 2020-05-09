@@ -1,20 +1,23 @@
 import { SphereGeometry, MeshLambertMaterial, TextureLoader, Mesh, Group } from './three/build/three.module.js'
 import Fighters from './Fighters.js'
 import { BLOOM_LAYER } from './constants.js'
-import { getCoords } from './utils.js'
+import { setSeed, random } from './utils.js'
 
 export default class Planet {
 
     constructor(data) {
         this.radius = data.radius
         this.id = data.id
+        setSeed(data.seed + this.id*1000)
         
         this.geometry = new SphereGeometry(this.radius, 64, 64)
         this.selectedMaterial = new MeshLambertMaterial({ color: 0x111111, emissive: 0x222222 })
         this.material = new MeshLambertMaterial({ map: new TextureLoader().load('/img/2k_mars.jpg') })//new MeshLambertMaterial({ color: 0xE5E5E5 })
         this.mesh = new Mesh(this.geometry, this.material)
+
         this.group = new Group()
-        this.group.position.copy(data.position)
+        let theta = random()*2*Math.PI
+        this.group.position.set(data.orbitRadius*Math.cos(theta), 0, data.orbitRadius*Math.sin(theta))
         this.fighters = new Fighters(this, data.fighters.n, data.seed)
         this.group.add(this.mesh, this.fighters.mesh)
 
@@ -30,14 +33,14 @@ export default class Planet {
     }
 
     update(data, dt) {
-        if(data.radius) this.radius = data.radius
-        if(data.position) this.position.copy(data.position)
+        //if(data.radius) this.radius = data.radius
+        //if(data.position) this.position.copy(data.position)
         if(data.fighters) {
             data.fighters.seed = data.seed
             this.fighters.update(data.fighters, dt)
         }
-        this.mesh.rotation.x += .03 * dt
-        this.mesh.rotation.y -= .14 * dt
+        this.mesh.rotation.x += .04 * dt
+        this.mesh.rotation.y -= .18 * dt
 
         if(this.hover && !this.hovered) {
             this.tl.clear()

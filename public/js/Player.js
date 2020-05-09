@@ -11,6 +11,7 @@ export default class Player {
         this.game = game
         
         this.system = new Group()
+        this.system.position.copy(playerData.position)
         this.planets = {}
         for(let key in playerData.planets) {
             let planetData = playerData.planets[key]
@@ -19,8 +20,8 @@ export default class Player {
             this.system.add(this.planets[key].group)
         }
 
-        this.dyson = new DysonSphere(50, playerData.sun.position)
-        this.system.add(this.dyson)
+        this.dyson = new DysonSphere(50, new Vector3())
+        this.system.add(this.dyson.group)
         game.scene.add(this.system)
 
         this.roads = []
@@ -43,9 +44,11 @@ export default class Player {
     update(data, dt) {
         for(let planetData of Object.values(data.planets)) {
             planetData.seed = data.seed
-            this.planets[planetData.id].update(planetData, dt)
+            let planet = this.planets[planetData.id]
+            planet.update(planetData, dt)
+            planet.group.position.applyAxisAngle(new Vector3(0, 1, 0), .002)
         }
-        this.dyson.update(dt)
+        this.dyson.update(dt)   
         
         this.energy += this.powerPanels * 1 * dt
         this.shield = this.powerPanels * 10 + this.shieldPanels * 100

@@ -41,10 +41,11 @@ export default class GameLogic {
     start() {
         for(let i = 0; i < this.players.length; i++) {
             let theta = 2*Math.PI * i / this.players.length
-            let planet = new PlanetLogic(11, new Vector3(700*Math.cos(theta), 0, 700*Math.sin(theta)))
+            let planet = new PlanetLogic(11)
             planet.fighters.n = 1024
+            planet.orbitRadius = 100
             this.players[i].planets[planet.id] = planet
-            this.players[i].sun.position.set(800*Math.cos(theta), 0, 800*Math.sin(theta))
+            this.players[i].position.set(250*Math.cos(theta), 0, 250*Math.sin(theta))
         }
         this.createRing(35, 4)
         this.createRing(150, 10)
