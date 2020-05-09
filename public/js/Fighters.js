@@ -19,14 +19,18 @@ export default class Fighters {
 
         this.material = new PointsMaterial( { size: .5, color: 0xff0000 })
         this.mesh = new Points(this.geometry, this.material)
+
+        this.updates = 0
+        this.updateDivisor = 3
     }
 
     update(data, dt) {
+        if(this.updates++ % this.updateDivisor !== 0) return
         setSeed(data.seed)
         if(this.n !== data.n) {
             this.add(data.n - this.n)
         }
-        this.stepOrbit(dt)
+        this.stepOrbit(this.updateDivisor*dt)
         this.geometry.attributes.position.needsUpdate = true
     }
 

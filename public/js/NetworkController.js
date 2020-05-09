@@ -9,7 +9,7 @@ export default class NetworkController {
         this.room = ''
         this.pollingPlayers = 0
         this.creator = false
-        this.dt = 10/1000
+        this.dt = 1/90
     }
 
     /*** IMPLEMENT GAME FUNCTIONS ***/

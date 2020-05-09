@@ -14,7 +14,7 @@ export default class GameLogic {
 
     update() {
         this.seed = Date.now()
-        for(let player of this.players) player.update(10/1000, this.seed)
+        for(let player of this.players) player.update(1/90, this.seed)
         this.io.to(this.room).emit('update', this.object)
     }
     get object() {
@@ -43,7 +43,7 @@ export default class GameLogic {
             for(let r of [150, 320, 470]) {
                 let theta = 2*Math.PI * i / this.players.length
                 let planet = new PlanetLogic(15)
-                planet.fighters.n = 1024
+                planet.fighters.n = 3072
                 planet.orbitRadius = r
                 planet.orbitSpeed = 0.7 / r
                 this.players[i].planets[planet.id] = planet
@@ -52,7 +52,7 @@ export default class GameLogic {
         }
         this.createRing(35, 4)
         this.createRing(150, 10)
-        this.updateLoop = setInterval(this.update.bind(this), 10)
+        this.updateLoop = setInterval(this.update.bind(this), 1000/90)
     }
 
     createRing(r, n, thetaStart=0, thetaLength=2*Math.PI) {
