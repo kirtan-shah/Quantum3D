@@ -1,4 +1,4 @@
-import { Vector3, PointLight } from './three/build/three.module.js'
+import { Vector3, PointLight, Group } from './three/build/three.module.js'
 import Planet from './Planet.js'
 import Sun from './Sun.js'
 import { DysonSphere, DysonMesh } from './DysonSphere.js'
@@ -10,14 +10,18 @@ export default class Player {
     constructor(game, playerData) {
         this.game = game
         
+        this.system = new Group()
         this.planets = {}
         for(let key in playerData.planets) {
             let planetData = playerData.planets[key]
             planetData.seed = playerData.seed + planetData.id
             this.planets[key] = new Planet(planetData)
-            game.scene.add(this.planets[key].group)
-            //this.planets[key].fighters.add(1024, true)
+            this.system.add(this.planets[key].group)
         }
+
+        this.dyson = new DysonSphere(50, playerData.sun.position)
+        this.system.add(this.dyson)
+        game.scene.add(this.system)
 
         this.roads = []
         /*
@@ -29,11 +33,6 @@ export default class Player {
                 game.scene.add(road.group)
             }
         }*/
-    
-        this.dyson = new DysonSphere(50, playerData.sun.position)
-        game.scene.add(this.dyson.group)
-    
-        this.dyson.update(0)
         this.powerPanels = 0
         this.shieldPanels = 0
         this.energy = 10000
