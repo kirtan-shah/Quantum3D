@@ -91,4 +91,4 @@ function shiftElementsBack(arr, i, n, end) {
     }
 }
 
-export { thickLine, rotationFromPoints, shuffleArray, setSeed, random, randomGaussian, shiftElementsBack, getCoords }
+export { thickLine, rotationFromPoints, shuffleArray, setSeed, random, randomGaussian, shiftElementsBack, getCoords, initCache, useCache }
