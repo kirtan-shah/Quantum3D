@@ -4,7 +4,6 @@ import GameLogic from './GameLogic.js'
 const app = express()
 const port = 971
 app.use(express.static('public'))
-express.static.mime.define({'application/wasm': ['wasm']})
 
 let games = {}
 function generateId() {
