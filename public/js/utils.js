@@ -52,17 +52,36 @@ function shuffleArray(array) {
 }
 
 var prng
+var cache
+var usingCache = false
+var cacheIndex = 0
+function initCache(n, seed) {
+    cache = new Array(n)
+    prng = new Math.seedrandom(seed)
+    for(let i = 0; i < n; i++) cahce[i] = prng.quick()
+}
+
+function useCache() {
+    usingCache = true
+}
 function setSeed(seed) {
     prng = new Math.seedrandom(seed)
 }
 function random() {
+    if(!prng) return Math.random()
+    if(usingCache) {
+        let val = cache[cacheIndex]
+        cacheIndex++
+        if(cacheIndex >= cache.length) cacheIndex = 0
+        return val;
+    }
     if(!prng) prng = new Math.seedrandom()
     return prng.quick()
 }
-function randomGaussian(seeded) {
+function randomGaussian() {
     var u = 0, v = 0
-    while(u === 0) u = seeded ? random() : Math.random() //Converting [0,1) to (0,1)
-    while(v === 0) v = seeded ? random() : Math.random()
+    while(u === 0) u = random() //Converting [0,1) to (0,1)
+    while(v === 0) v = random()
     return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v)
 }
 
