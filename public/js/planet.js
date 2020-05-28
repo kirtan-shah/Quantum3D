@@ -1,4 +1,4 @@
-import { SphereGeometry, MeshLambertMaterial, TextureLoader, Mesh, Group } from './three/build/three.module.js'
+import { SphereGeometry, MeshLambertMaterial, TextureLoader, Mesh, Group, TorusGeometry, MeshBasicMaterial } from './three/build/three.module.js'
 import Fighters from './Fighters.js'
 import { BLOOM_LAYER } from './constants.js'
 import { setSeed, random } from './utils.js'
@@ -17,10 +17,12 @@ export default class Planet {
         this.mesh = new Mesh(this.geometry, this.material)
 
         this.group = new Group()
-        let theta = random()*2*Math.PI
         //if(data.position) this.group.position.c
+        let theta = random()*2*Math.PI
         this.group.position.set(data.orbitRadius*Math.cos(theta), 0, data.orbitRadius*Math.sin(theta))
         this.fighters = new Fighters(this, data.fighters.n, data.seed)
+        this.orbitRing = new Mesh(new TorusGeometry(data.orbitRadius, 2, 16, 512), new MeshBasicMaterial({ color: 0xE5E5E5, transparent: true, opacity: .5 }));
+        this.orbitRing.rotation.x += Math.PI/2
         this.group.add(this.mesh, this.fighters.mesh)
 
         this.tl = gsap.timeline()
@@ -35,6 +37,10 @@ export default class Planet {
     }
 
     update(data, dt) {
+        //this.orbitRing.rotation.x += .1
+        //this.orbitRing.rotation.y += .1
+        //this.orbitRing.rotation.z += .1
+        
         //if(data.radius) this.radius = data.radius
         //if(data.position) this.position.copy(data.position)
         if(data.fighters) {

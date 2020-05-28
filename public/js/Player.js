@@ -18,6 +18,7 @@ export default class Player {
             planetData.seed = playerData.seed + planetData.id
             this.planets[key] = new Planet(planetData)
             this.system.add(this.planets[key].group)
+            this.system.add(this.planets[key].orbitRing)
         }
 
         this.dyson = new DysonSphere(50, new Vector3())

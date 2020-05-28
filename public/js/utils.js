@@ -53,32 +53,38 @@ function shuffleArray(array) {
 
 var prng
 var cache
+var gaussianCache
 var usingCache = false
 var cacheIndex = 0
+var gaussianCacheIndex = 0
 function initCache(n, seed) {
     cache = new Array(n)
+    gaussianCache = new Array(n)
     prng = new Math.seedrandom(seed)
-    for(let i = 0; i < n; i++) cahce[i] = prng.quick()
-}
-
-function useCache() {
+    for(let i = 0; i < n; i++) cache[i] = prng.quick()
+    for(let i = 0; i < n; i++) gaussianCache[i] = randomGaussian()
     usingCache = true
 }
+
 function setSeed(seed) {
     prng = new Math.seedrandom(seed)
+    if(usingCache) cacheIndex = Math.floor(prng.quick()*cache.length)
 }
 function random() {
-    if(!prng) return Math.random()
-    if(usingCache) {
-        let val = cache[cacheIndex]
-        cacheIndex++
-        if(cacheIndex >= cache.length) cacheIndex = 0
-        return val;
+    if(!usingCache) {
+        if(!prng) prng = new Math.seedrandom()
+        return prng.quick()
     }
-    if(!prng) prng = new Math.seedrandom()
-    return prng.quick()
+    cacheIndex++
+    if(cacheIndex >= cache.length) cacheIndex = 0
+    return cache[cacheIndex];
 }
 function randomGaussian() {
+    if(usingCache) {
+        gaussianCacheIndex++
+        if(gaussianCacheIndex >= gaussianCache.length) gaussianCacheIndex = 0
+        return gaussianCache[gaussianCacheIndex];
+    }
     var u = 0, v = 0
     while(u === 0) u = random() //Converting [0,1) to (0,1)
     while(v === 0) v = random()
@@ -91,4 +97,4 @@ function shiftElementsBack(arr, i, n, end) {
     }
 }
 
-export { thickLine, rotationFromPoints, shuffleArray, setSeed, random, randomGaussian, shiftElementsBack, getCoords, initCache, useCache }
+export { thickLine, rotationFromPoints, shuffleArray, setSeed, random, randomGaussian, shiftElementsBack, getCoords, initCache }

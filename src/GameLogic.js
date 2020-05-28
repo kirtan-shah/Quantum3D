@@ -43,7 +43,7 @@ export default class GameLogic {
             for(let r of [150, 320, 470]) {
                 let theta = 2*Math.PI * i / this.players.length
                 let planet = new PlanetLogic(15)
-                planet.fighters.n = 3072
+                planet.fighters.n = 128
                 planet.orbitRadius = r
                 planet.orbitSpeed = 0.7 / r
                 this.players[i].planets[planet.id] = planet

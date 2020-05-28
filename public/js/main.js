@@ -6,12 +6,14 @@ import EmptyGame from './EmptyGame.js'
 import AssetLoader from './AssetLoader.js'
 import { Spinner } from './lib/spin.js'
 import { spinnerOptions } from './constants.js'
+import { initCache } from './utils.js'
 
 let target = document.getElementById('loading-screen')
-new Spinner(spinnerOptions).spin(target)
+let spinner = new Spinner(spinnerOptions)
+spinner.spin(target)
 function stopSpinner() {
     $('#loading-screen').fadeOut(1000)
-    $('#loading-screen *').fadeOut(500)
+    $('#loading-screen *').fadeOut(500, () => spinner.stop())
 }
 
 let canvas = document.createElement('canvas')
@@ -39,6 +41,8 @@ loader.add('/img/8k_stars_milky_way.jpg', 'image')
 loader.add('/img/2k_sun.jpg', 'image')
 loader.add('/img/2k_mars.jpg', 'image')
 loader.load(() => {
+    initCache(1e6, 45689)
+    
     stopSpinner()
     controller = new NetworkController('http://localhost:971', () => {
         game = new Game(controller, renderer, scene, camera, loader)
@@ -93,6 +97,9 @@ window.onpopstate = (event) => {
     $('.page').fadeOut(200)
     $('#' + event.state.page).show()
 }
+$('button').click(() => {
+    new Audio("/sounds/press.mp3").play()
+})
 $('#enter').click(() => {
     $('.page').hide()
     if(history.state.creator) {
